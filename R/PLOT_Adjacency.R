@@ -5,47 +5,50 @@
 #' Plots a heat map of the differential light sensitivity on the Humphrey Field
 #' Analyzer-II visual field.
 #'
-#' @param WijAlpha variable to be plotted on the visual field (e.g. differential light sensitivity).
+#' @param Wij a \code{\link{PosteriorAdj}} object.
 #'
-#' @param Visit an overall title for the plot.
+#' @param Visit either an integer \code{(1,...,Nu)} indicating the visit number for which
+#' you want to get the adjacencies to plot or NA. If NA, then the plot will produce the
+#' dissimilarity metric at each adjacency.
 #'
-#' @param stat a label for the legend (default = "DLS (dB)").
+#' @param stat either "mean" or "sd" (only used for Visit != NA).
 #'
-#' @param main the limits used for the legend (default are the minimum and maximum of Y).
+#' @param main an overall title for the plot.
 #'
-#' @param color.scheme the number of bins used to refine the color palette for the figure and legend.
+#' @param color.scheme a vector of colors to be used to show the adjacencies changing.
 #'
-#' @param edgewidth logical, indicating whether there should be a border around the visual field (default = TRUE).
+#' @param edgewidth a scalar indicating the width of the edges.
 #'
-#' @param cornerwidth logical, indicating whether the legend should be present (default = TRUE).
+#' @param cornerwidth a scalar indicating the width of the corners.
 #'
-#' @param lwd.border a vector of character strings representing the color palette.
+#' @param lwd.border a scalar indicating width of the visual field border.
 #'
-#' @param color.bs a vector of character strings representing the color palette.
+#' @param color.bs one color specifying the blind spot.
 #'
-#' @param zlim a vector of character strings representing the color palette.
+#' @param zlim the limits used for the legend (default are c(0,1)).
 #'
-#' @param legend a vector of character strings representing the color palette.
+#' @param legend logical, indicating whether the legend should be present (default = TRUE).
 #'
-#' @param Degree a vector of character strings representing the color palette.
+#' @param DM a dissimilarity metric to be plotted at each location on the visual field (default = NULL).
 #'
 #' @details \code{PlotAdjacency} is used in the application of glaucaom progression to
-#'  plot a variable across the visual field in the form of a heat map.
+#'  plot the posterior mean and standard deviation neighborhood adjacencies across the
+#'  visual field.
 #'
 #' @examples
 #' \dontrun{
-#' data(VFSeries)
-#' PlotAdjacency(Y = VFSeries$DLS[VFSeries$Visit == 1],
-#'                   main = "Sensitivity estimate (dB) at each \n location on visual field",
-#'                   legend.lab = "DLS (dB)",
-#'                   zlim = c(10, 35),
-#'                   bins = 250)
+#' ###Load Garway-Heath angles for dissimiliarity metric
+#' DM <- GarwayHeath[-blind_spot] #Uses Garway-Heath angles object "GarwayHeath"
+#'
+#' ###Adjacency plots
+#' ColorScheme1 <- c("Black", "#636363", "#bdbdbd", "#f0f0f0", "White")
+#' PlotAdjacency(Wij, Visit = NA, main = "", zlim = c(0, 180), DM = DM)
 #' }
 #'
 #' @author Samuel I. Berchuck
 #'
 #' @export
-PlotAdjacency <- function(WijAlpha,
+PlotAdjacency <- function(Wij,
                           Visit = 1,
                           stat = "mean",
                           main = "Estimated Adjacencies",
@@ -56,24 +59,38 @@ PlotAdjacency <- function(WijAlpha,
                           color.bs = "gray",
                           zlim = c(0, 1),
                           legend = TRUE,
-                          Degree = NULL) {
+                          DM = NULL) {
 
   ##Note: Depends on library classInt
   # You need the suggested package for this function
-  my_fun <- function(a, b) {
-    if (!requireNamespace("classInt", quietly = TRUE)) {
-      stop("classInt needed for this function to work. Please install it.",
-           call. = FALSE)
-    }
+  if (!requireNamespace("classInt", quietly = TRUE)) {
+    stop("classInt needed for this function to work. Please install it.",
+          call. = FALSE)
   }
+
+  ###Logical function to check for colors
+  areColors <- function(x) {
+    sapply(x, function(X) {
+      tryCatch(is.matrix(col2rgb(X)),
+               error = function(e) FALSE)
+    })
+  }
+  Degree <- DM
+  ###Check inputs
+  if (missing(Wij)) stop('"Wij is missing"')
+  if (!is.PosteriorAdj(Wij)) stop('"Wij" is not a PosteriorAdj object')
+  Nu <- as.numeric(unlist(strsplit(colnames(Wij)[dim(Wij)[2]], "sd"))[2])
+  if (!(Visit %in% c(NA,1:Nu))) stop('"Visit" must be either NA or an integer between 1 and Nu')
+  if (!(stat %in% c("mean", "sd"))) stop('"stat" must be one of "mean" or "sd"')
+  if (!any(areColors(color.scheme))) stop('"color.scheme" can only include colors')
 
   ###Border information
   if (is.na(Visit)) {
-    Boundary <- WijAlpha[ , 1 : 3]
+    Boundary <- Wij[ , 1 : 3]
     Boundary[ ,3] <- 180 - Boundary[ ,3]
   }
-  if (!is.na(Visit) & stat == "mean") Boundary <- WijAlpha[ , c(1, 2, (2 * Visit) + 2)]
-  if (!is.na(Visit) & stat == "sd") Boundary <- WijAlpha[ , c(1, 2, (2 * Visit) + 3)]
+  if (!is.na(Visit) & stat == "mean") Boundary <- Wij[ , c(1, 2, (2 * Visit) + 2)]
+  if (!is.na(Visit) & stat == "sd") Boundary <- Wij[ , c(1, 2, (2 * Visit) + 3)]
   NAdjacency <- dim(Boundary)[1]
 
   ###Set color pallete
@@ -499,12 +516,14 @@ PlotAdjacency <- function(WijAlpha,
         segments(11.75,(3:7)[i],12,(3:7)[i],lwd=2)
       }
       if (is.na(Visit)) text(11.5, 7.5, expression(paste("Degree (",degree,")")))
-      if (!is.na(Visit)) text(11.4, 7.5, expression(paste(w[ij],"(",alpha[t],")")))
+      if (!is.na(Visit) & stat == "mean") text(11.4, 7.5, expression(paste("E[",w[ij],"(",alpha[t],")]")))
+      if (!is.na(Visit) & stat == "sd") text(11.4, 7.5, expression(paste("sd[",w[ij],"(",alpha[t],")]")))
     }
 
   if (!is.null(Degree)) {
 
     ###Add garway angles
+
     text(4.5,8.5,Degree[1])
     text(5.5,8.5,Degree[2])
     text(6.5,8.5,Degree[3])

@@ -43,11 +43,9 @@ PlotSensitivity <- function(Y = Y, main = "Sensitivity Estimate (dB) at each \nl
 
   ##Note: Depends on library classInt
   # You need the suggested package for this function
-  my_fun <- function(a, b) {
-    if (!requireNamespace("classInt", quietly = TRUE)) {
-      stop("classInt needed for this function to work. Please install it.",
-           call. = FALSE)
-    }
+  if (!requireNamespace("classInt", quietly = TRUE)) {
+    stop("classInt needed for this function to work. Please install it.",
+          call. = FALSE)
   }
 
   ###Create Legend Cutoffs

@@ -4,35 +4,37 @@
 \alias{PlotAdjacency}
 \title{PlotAdjacency}
 \usage{
-PlotAdjacency(WijAlpha, Visit = 1, stat = "mean",
+PlotAdjacency(Wij, Visit = 1, stat = "mean",
   main = "Estimated Adjacencies", color.scheme = c("Black", "White"),
   edgewidth = 2, cornerwidth = 1/4, lwd.border = 3, color.bs = "gray",
-  zlim = c(0, 1), legend = TRUE, Degree = NULL)
+  zlim = c(0, 1), legend = TRUE, DM = NULL)
 }
 \arguments{
-\item{WijAlpha}{variable to be plotted on the visual field (e.g. differential light sensitivity).}
+\item{Wij}{a \code{\link{PosteriorAdj}} object.}
 
-\item{Visit}{an overall title for the plot.}
+\item{Visit}{either an integer \code{(1,...,Nu)} indicating the visit number for which
+you want to get the adjacencies to plot or NA. If NA, then the plot will produce the
+dissimilarity metric at each adjacency.}
 
-\item{stat}{a label for the legend (default = "DLS (dB)").}
+\item{stat}{either "mean" or "sd" (only used for Visit != NA).}
 
-\item{main}{the limits used for the legend (default are the minimum and maximum of Y).}
+\item{main}{an overall title for the plot.}
 
-\item{color.scheme}{the number of bins used to refine the color palette for the figure and legend.}
+\item{color.scheme}{a vector of colors to be used to show the adjacencies changing.}
 
-\item{edgewidth}{logical, indicating whether there should be a border around the visual field (default = TRUE).}
+\item{edgewidth}{a scalar indicating the width of the edges.}
 
-\item{cornerwidth}{logical, indicating whether the legend should be present (default = TRUE).}
+\item{cornerwidth}{a scalar indicating the width of the corners.}
 
-\item{lwd.border}{a vector of character strings representing the color palette.}
+\item{lwd.border}{a scalar indicating width of the visual field border.}
 
-\item{color.bs}{a vector of character strings representing the color palette.}
+\item{color.bs}{one color specifying the blind spot.}
 
-\item{zlim}{a vector of character strings representing the color palette.}
+\item{zlim}{the limits used for the legend (default are c(0,1)).}
 
-\item{legend}{a vector of character strings representing the color palette.}
+\item{legend}{logical, indicating whether the legend should be present (default = TRUE).}
 
-\item{Degree}{a vector of character strings representing the color palette.}
+\item{DM}{a dissimilarity metric to be plotted at each location on the visual field (default = NULL).}
 }
 \description{
 Plots a heat map of the differential light sensitivity on the Humphrey Field
@@ -40,16 +42,17 @@ Analyzer-II visual field.
 }
 \details{
 \code{PlotAdjacency} is used in the application of glaucaom progression to
- plot a variable across the visual field in the form of a heat map.
+ plot the posterior mean and standard deviation neighborhood adjacencies across the
+ visual field.
 }
 \examples{
 \dontrun{
-data(VFSeries)
-PlotAdjacency(Y = VFSeries$DLS[VFSeries$Visit == 1],
-                  main = "Sensitivity estimate (dB) at each \\n location on visual field",
-                  legend.lab = "DLS (dB)",
-                  zlim = c(10, 35),
-                  bins = 250)
+###Load Garway-Heath angles for dissimiliarity metric
+DM <- GarwayHeath[-blind_spot] #Uses Garway-Heath angles object "GarwayHeath"
+
+###Adjacency plots
+ColorScheme1 <- c("Black", "#636363", "#bdbdbd", "#f0f0f0", "White")
+PlotAdjacency(Wij, Visit = NA, main = "", zlim = c(0, 180), DM = DM)
 }
 
 }

@@ -65,6 +65,25 @@ PosteriorAdj <- function(object) {
     Wij <- cbind(Wij, apply(WijMat, 2, mean), apply(WijMat, 2, sd))
   }
   colnames(Wij) <- c("i", "j", "DM", paste(c("mean", "sd"), rep(1 : Nu, each = 2), sep=""))
+  Wij <- structure(Wij, class = "PosteriorAdj")
   return(Wij)
-
 }
+
+
+
+###Verify the class of our regression object------------------------------------------------------------------------
+#' is.PosteriorAdj
+#'
+#' \code{is.PosteriorAdj} is a general test of an object being interpretable as a
+#' \code{\link{PosteriorAdj}} object.
+#'
+#' @param x object to be tested.
+#'
+#' @details The \code{\link{PosteriorAdj}} class is defined as the posterior adjacenct
+#'  object that results from the \code{\link{PosteriorAdj}} function.
+#'
+#' @export
+is.PosteriorAdj <- function(x) {
+  identical(attributes(x)$class, "PosteriorAdj")
+}
+
