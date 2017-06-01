@@ -4,10 +4,12 @@
 #'
 #' Predicts future observations from the \code{\link{STBDwDM}} model.
 #'
-#' @param obj A \code{\link{STBDwDM}} model object for which predictions
+#' @param object a \code{\link{STBDwDM}} model object for which predictions
 #'  are desired from.
 #'
-#' @param NewTimes A numeric vector including desired time(s) points for prediction.
+#' @param NewTimes a numeric vector including desired time(s) points for prediction.
+#'
+#' @param ... other arguments.
 #'
 #' @details \code{predict.STBDwDM} uses Bayesian krigging to predict vectors at future
 #'  time points. The function returns the krigged observed outcomes along with the
@@ -34,11 +36,11 @@
 #'
 #' @export
 ###Prediction function for spBDwDM function
-predict.STBDwDM <- function(obj, NewTimes) {
+predict.STBDwDM <- function(object, NewTimes, ...) {
 
   ###Check Inputs
-  if (missing(obj)) stop('"obj" is missing')
-  if (!is.STBDwDM(obj)) stop('"obj" must be of class STBDwDM')
+  if (missing(object)) stop('"object" is missing')
+  if (!is.STBDwDM(object)) stop('"object" must be of class STBDwDM')
   if (missing(NewTimes)) stop('"NewTimes" is missing')
   if (!is.numeric(NewTimes)) stop('NewTimes must be a vector')
   if (any(is.na(NewTimes))) stop("NewTimes may have no missing values")
@@ -49,7 +51,7 @@ predict.STBDwDM <- function(obj, NewTimes) {
   set.seed(54)
 
   ###Set data objects
-  DatObj <- obj$datobj
+  DatObj <- object$datobj
   Nu <- DatObj$Nu
   M <- DatObj$M
 
@@ -69,16 +71,16 @@ predict.STBDwDM <- function(obj, NewTimes) {
   DatObj$NNewVisits <- NNewVisits
 
   ###Set mcmc object
-  NKeep <- dim(obj$phi)[1]
+  NKeep <- dim(object$phi)[1]
 
   ###Create parameter object
   Para <- list()
-  Para$Mu <- obj$mu
-  Para$Tau2 <- obj$tau2
-  Para$Alpha <- obj$alpha
-  Para$Delta <- obj$delta
-  Para$T <- obj$T
-  Para$Phi <- obj$phi
+  Para$Mu <- object$mu
+  Para$Tau2 <- object$tau2
+  Para$Alpha <- object$alpha
+  Para$Delta <- object$delta
+  Para$T <- object$T
+  Para$Phi <- object$phi
 
   ###Obtain samples of mu, tau and alpha using Bayesian krigging
   ThetaKrig <- ThetaKrigging(DatObj, Para, NKeep)

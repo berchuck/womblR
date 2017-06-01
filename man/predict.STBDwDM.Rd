@@ -4,13 +4,15 @@
 \alias{predict.STBDwDM}
 \title{predict.STBDwDM}
 \usage{
-\method{predict}{STBDwDM}(obj, NewTimes)
+\method{predict}{STBDwDM}(object, NewTimes, ...)
 }
 \arguments{
-\item{obj}{A \code{\link{STBDwDM}} model object for which predictions
+\item{object}{a \code{\link{STBDwDM}} model object for which predictions
 are desired from.}
 
-\item{NewTimes}{A numeric vector including desired time(s) points for prediction.}
+\item{NewTimes}{a numeric vector including desired time(s) points for prediction.}
+
+\item{...}{other arguments.}
 }
 \value{
 \code{predict.STBDwDM} returns a list containing the following objects.

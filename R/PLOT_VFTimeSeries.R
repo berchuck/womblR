@@ -1,6 +1,6 @@
 ###Function for plotting a time series of data at each location on the visual field
 #'
-#' plot.VfTimeSeries
+#' PlotVfTimeSeries
 #'
 #' Plots a time series at each location of the Humphrey Field Analyzer-II visual field .
 #'
@@ -18,14 +18,14 @@
 #'
 #' @param ylab a title for the y axis.
 #'
-#' @details \code{plot.VfTimeSeries} is used in the application of glaucaom progression.
+#' @details \code{PlotVfTimeSeries} is used in the application of glaucaom progression.
 #'  In each cell is the observed DLS at each location over visits, with the red line
 #'  representing a linear regression trend.
 #'
 #' @examples
 #' \dontrun{
 #' data(VFSeries)
-#' plot.VfTimeSeries(Y = VFSeries$DLS,
+#' PlotVfTimeSeries(Y = VFSeries$DLS,
 #'                   Location = VFSeries$Location,
 #'                   Time = VFSeries$Time,
 #'                   main = "Visual field sensitivity time series \n at each location",
@@ -37,7 +37,7 @@
 #' @author Samuel I. Berchuck
 #'
 #' @export
-plot.VfTimeSeries <- function(Y, Location, Time,
+PlotVfTimeSeries <- function(Y, Location, Time,
                              main = "Visual field sensitivity time series \n at each location",
                              xlab = "Time from first visit (days)",
                              ylab = "Sensitivity (dB)") {

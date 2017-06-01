@@ -1,49 +1,54 @@
 ###Function used to plot sensitivity values on the visual field
-###Function for plotting a time series of data at each location on the visual field
 #'
-#' plot.Sensitivity
+#' PlotSensitivity
 #'
 #' Plots a heat map of the differential light sensitivity on the Humphrey Field
 #' Analyzer-II visual field.
 #'
-#' @param Y a time series variable to be plotted.
-#'
-#' @param Location a variable corresponding to the location on the visual field
-#'  that the time series variable was observed.
-#'
-#' @param Time a variable corresponding to the time that the time series variable
-#'  was observed.
+#' @param Y variable to be plotted on the visual field (e.g. differential light sensitivity).
 #'
 #' @param main an overall title for the plot.
 #'
-#' @param xlab a title for the x axis.
+#' @param legend.lab a label for the legend (default = "DLS (dB)").
 #'
-#' @param ylab a title for the y axis.
+#' @param zlim the limits used for the legend (default are the minimum and maximum of Y).
 #'
-#' @details \code{plot.VfTimeSeries} is used in the application of glaucaom progression.
-#'  In each cell is the observed DLS at each location over visits, with the red line
-#'  representing a linear regression trend.
+#' @param bins the number of bins used to refine the color palette for the figure and legend.
+#'
+#' @param border logical, indicating whether there should be a border around the visual field (default = TRUE).
+#'
+#' @param legend logical, indicating whether the legend should be present (default = TRUE).
+#'
+#' @param color a vector of character strings representing the color palette.
+#'
+#' @details \code{PlotSensitivity} is used in the application of glaucaom progression to
+#'  plot a variable across the visual field in the form of a heat map.
 #'
 #' @examples
 #' \dontrun{
 #' data(VFSeries)
-#' plot.VfTimeSeries(Y = VFSeries$DLS,
-#'                   Location = VFSeries$Location,
-#'                   Time = VFSeries$Time,
-#'                   main = "Visual field sensitivity time series \n at each location",
-#'                   xlab = "Days from baseline visit",
-#'                   ylab = "Differential light sensitivity (dB)")
-#'
+#' PlotSensitivity(Y = VFSeries$DLS[VFSeries$Visit == 1],
+#'                   main = "Sensitivity estimate (dB) at each \n location on visual field",
+#'                   legend.lab = "DLS (dB)",
+#'                   zlim = c(10, 35),
+#'                   bins = 250)
 #' }
 #'
 #' @author Samuel I. Berchuck
 #'
 #' @export
-plot.Sensitivity <- function(Y = Y, main = "Sensitivity Estimate (dB) at each \nlocation on visual field",
-                            zlim, bins = 100, border = TRUE, legend = TRUE,
+PlotSensitivity <- function(Y = Y, main = "Sensitivity Estimate (dB) at each \nlocation on visual field",
+                            legend.lab = "DLS (dB)", zlim, bins = 100, border = TRUE, legend = TRUE,
                             color = c("yellow", "orange", "red")) {
 
   ##Note: Depends on library classInt
+  # You need the suggested package for this function
+  my_fun <- function(a, b) {
+    if (!requireNamespace("classInt", quietly = TRUE)) {
+      stop("classInt needed for this function to work. Please install it.",
+           call. = FALSE)
+    }
+  }
 
   ###Create Legend Cutoffs
   labs <- levels(cut(Y, bins))
@@ -114,7 +119,7 @@ plot.Sensitivity <- function(Y = Y, main = "Sensitivity Estimate (dB) at each \n
       text(12.75, (3:7)[i], format0(LegendPV[i]))
       segments(11.75, (3:7)[i], 12, (3:7)[i], lwd = 1.5)
     }
-    text(11.5, 7.5, "DLS (dB)")
+    text(11.5, 7.5, legend.lab)
   }
 
   ###Return to default par setting

@@ -13,5 +13,6 @@ LazyData: true
 RoxygenNote: 5.0.1
 NeedsCompilation: yes
 Depends: R (>= 3.0.2)
-Imports: mvtnorm (>= 1.0-0), Rcpp (>= 0.12.9), stats, utils
+Imports: graphics, grDevices, mvtnorm (>= 1.0-0), Rcpp (>= 0.12.9), stats, utils
+Suggests: classInt
 LinkingTo: Rcpp, RcppArmadillo (>= 0.7.500.0.0)
