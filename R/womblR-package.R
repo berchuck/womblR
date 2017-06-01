@@ -16,7 +16,7 @@
 #' @docType package
 #' @import Rcpp
 #' @importFrom graphics abline axis layout par plot points polygon title segments symbols rect text
-#' @importFrom grDevices  colorRampPalette
+#' @importFrom grDevices  col2rgb colorRampPalette
 #' @importFrom utils tail
 #' @importFrom stats lm sd var
 #' @importFrom mvtnorm pmvnorm
