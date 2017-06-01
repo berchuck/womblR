@@ -15,10 +15,10 @@
 #' @name womblR
 #' @docType package
 #' @import Rcpp
-#' @importFrom graphics abline axis layout par plot points title segments symbols text
+#' @importFrom graphics abline axis layout par plot points polygon title segments symbols rect text
 #' @importFrom grDevices  colorRampPalette
 #' @importFrom utils tail
-#' @importFrom stats var lm
+#' @importFrom stats lm sd var
 #' @importFrom mvtnorm pmvnorm
 #' @useDynLib womblR
 NULL
