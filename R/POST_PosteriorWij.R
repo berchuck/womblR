@@ -79,7 +79,7 @@ PosteriorAdj <- function(object) {
 #'
 #' @param x object to be tested.
 #'
-#' @details The \code{\link{PosteriorAdj}} class is defined as the posterior adjacenct
+#' @details The \code{\link{PosteriorAdj}} class is defined as the posterior adjacency
 #'  object that results from the \code{\link{PosteriorAdj}} function.
 #'
 #' @export

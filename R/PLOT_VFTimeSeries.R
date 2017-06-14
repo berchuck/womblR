@@ -18,7 +18,7 @@
 #'
 #' @param ylab a title for the y axis.
 #'
-#' @details \code{PlotVfTimeSeries} is used in the application of glaucaom progression.
+#' @details \code{PlotVfTimeSeries} is used in the application of glaucoma progression.
 #'  In each cell is the observed DLS at each location over visits, with the red line
 #'  representing a linear regression trend.
 #'

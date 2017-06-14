@@ -1,4 +1,4 @@
-#' MCMC sampler for spatio-temporal boundary detection with dissimilarity metric.
+#' MCMC sampler for spatiotemporal boundary detection with dissimilarity metric.
 #'
 #' \code{STBDwDM} is an MCMC sampler for the methodology proposed by Berchuck and
 #' Warren in \emph{The title of our paper} (2017).
@@ -14,7 +14,7 @@
 #'  \code{Y}.
 #'
 #' @param W An \code{M x M} dimensional binary adjacency matrix for dictating the
-#'  spatial neigbourhood structure.
+#'  spatial neigborhood structure.
 #'
 #' @param Time A \code{Nu} dimensional vector containing the observed time points for each
 #'  vector of outcomes in increasing order.
@@ -94,11 +94,14 @@
 #'
 #' @param ScaleY A positive scalar used for scaling the observed data, \code{Y}. This is
 #'  used to aid numerically for MCMC convergence, as scaling large observations often
-#'  stabalizes chains. By default it is fixed at \code{10}.
+#'  stabilizes chains. By default it is fixed at \code{10}.
 #'
 #' @param ScaleDM A positive scalar used for scaling the dissimilarity metric distances,
 #'  \code{DM}. This is used to aid numerically for MCMC convergence. as scaling spatial
 #'  distances is often used for improved MCMC convergence. By default it is fixed at \code{100}.
+#'
+#' @param Seed An integer value used to set the seed for the random number generator
+#'  (default = 54).
 #'
 #' @details Discuss the methodology of the paper that we will publish and reference the paper.
 #'
@@ -144,7 +147,8 @@
 #' @export
 STBDwDM <- function(Y, DM, W, Time, Starting = NULL, Hypers = NULL, Tuning = NULL,
 			 		          MCMC = NULL, Family = "tobit", TemporalStructure = "exponential",
-			 		          Distance = "circumference", Rho = 0.99, ScaleY = 10, ScaleDM = 100) {
+			 		          Distance = "circumference", Rho = 0.99, ScaleY = 10, ScaleDM = 100,
+			 		          Seed = 54) {
 
 
   ###Function inputs
@@ -162,6 +166,7 @@ STBDwDM <- function(Y, DM, W, Time, Starting = NULL, Hypers = NULL, Tuning = NUL
   # Rho = 0.99
   # ScaleY = 10
   # ScaleDM = 100
+  # Seed = 54
 
   ###Check for missing objects
   if (missing(Y)) stop("Y: missing")
@@ -173,7 +178,10 @@ STBDwDM <- function(Y, DM, W, Time, Starting = NULL, Hypers = NULL, Tuning = NUL
   CheckInputs(Y, DM, W, Time, Starting, Hypers, Tuning, MCMC, Family, TemporalStructure, Distance, Rho, ScaleY, ScaleDM)
 
   ####Set seed for reproducibility
-  set.seed(54)
+  set.seed(Seed)
+
+  ###Check to see if the job is interactive
+  Interactive <- interactive()
 
   ###Create objects for use in sampler
   DatObj <- CreateDatObj(Y, DM, W, Time, Rho, ScaleY, ScaleDM, TemporalStructure, Family, Distance)
@@ -188,7 +196,7 @@ STBDwDM <- function(Y, DM, W, Time, Starting = NULL, Hypers = NULL, Tuning = NUL
   BeginTime <- Sys.time()
 
   ###Run MCMC sampler in Rcpp
-  RegObj <- STBDwDM_Rcpp(DatObj, HyPara, MetrObj, Para, DatAug, McmcObj, RawSamples)
+  RegObj <- STBDwDM_Rcpp(DatObj, HyPara, MetrObj, Para, DatAug, McmcObj, RawSamples, Interactive)
 
   ###Set regression objects
   RawSamples <- RegObj$rawsamples

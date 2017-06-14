@@ -31,7 +31,7 @@ Plots a heat map of the differential light sensitivity on the Humphrey Field
 Analyzer-II visual field.
 }
 \details{
-\code{PlotSensitivity} is used in the application of glaucaom progression to
+\code{PlotSensitivity} is used in the application of glaucoma progression to
  plot a variable across the visual field in the form of a heat map.
 }
 \examples{

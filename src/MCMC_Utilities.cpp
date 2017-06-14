@@ -2,18 +2,21 @@
 #include "MCMC_STBDwDM.h"
 
 //Initiate burn-in progress bar--------------------------------------------------------------------------
-void BeginBurnInProgress(mcmcobj McmcObj) {
+void BeginBurnInProgress(mcmcobj McmcObj, bool Interactive) {
 
   //Set MCMC object
-  int NBurn = McmcObj.NBurn;
   int BarLength = McmcObj.BarLength;
 
   //Initialize burn-in bar
-  if (NBurn > 0) {
+  if (Interactive) {
     Rcpp::Rcout << std::fixed << "Burn-in progress:  |";
     for (int i = 0; i < BarLength - 1; i++) Rcpp::Rcout << std::fixed << " ";
-    Rcpp::Rcout << std::fixed <<  "|" << std::fixed << std::endl;
+    Rcpp::Rcout << std::fixed <<  "|" << std::fixed;
   }
+  if (!Interactive) {
+    Rcpp::Rcout << std::fixed << "Burn-in progress:  0%..  ";
+  }
+
 }
 
 
@@ -140,6 +143,73 @@ arma::colvec StoreSamples(datobj DatObj, para Para) {
 
 
 
+// //Update burn-in progress bar----------------------------------------------------------------------------
+// void UpdateBurnInBar(int s, mcmcobj McmcObj) {
+//
+//   //Set MCMC object
+//   arma::vec WhichBurnInProgress = McmcObj.WhichBurnInProgress;
+//   int BarLength = McmcObj.BarLength;
+//
+//   //Add a new star
+//   arma::uvec NewStarBoolean = find(s == WhichBurnInProgress);
+//   arma::vec NewStarBooleanVec = arma::conv_to<arma::vec>::from(NewStarBoolean);
+//   int NewStar = NewStarBooleanVec(0);
+//   for (int i = 0; i < (BarLength + 1 - NewStar); i++) Rcpp::Rcout << std::fixed << "\b";
+//   Rcpp::Rcout << std::fixed << "*";
+//   for (int i = 0; i < (BarLength - 1 - NewStar); i++) Rcpp::Rcout << std::fixed << " ";
+//   Rcpp::Rcout << std::fixed << "|";
+//
+// }
+
+
+
+
+//Update burn-in progress bar----------------------------------------------------------------------------
+void UpdateBurnInBarInt(int s, mcmcobj McmcObj) {
+
+  //Set MCMC object
+  arma::vec WhichBurnInProgressInt = McmcObj.WhichBurnInProgressInt;
+  arma::uvec NewStarBoolean = find(s == WhichBurnInProgressInt);
+  arma::vec NewStarBooleanVec = arma::conv_to<arma::vec>::from(NewStarBoolean);
+  int NewStar = NewStarBooleanVec(0);
+
+  //Add percentage to submited job mode
+  Rcpp::Rcout.precision(0);
+  if (NewStar == 0) Rcpp::Rcout << std::fixed << "10%..  ";
+  if (NewStar == 1) Rcpp::Rcout << std::fixed << "20%..  ";
+  if (NewStar == 2) Rcpp::Rcout << std::fixed << "30%..  ";
+  if (NewStar == 3) Rcpp::Rcout << std::fixed << "40%..  ";
+  if (NewStar == 4) Rcpp::Rcout << std::fixed << "50%..  ";
+  if (NewStar == 5) Rcpp::Rcout << std::fixed << "60%..  ";
+  if (NewStar == 6) Rcpp::Rcout << std::fixed << "70%..  ";
+  if (NewStar == 7) Rcpp::Rcout << std::fixed << "80%..  ";
+  if (NewStar == 8) Rcpp::Rcout << std::fixed << "90%..  ";
+  if (NewStar == 9) Rcpp::Rcout << std::fixed << "100%!  ";
+
+}
+
+
+
+// //Update burn-in progress bar----------------------------------------------------------------------------
+// void UpdateBurnInBar(int s, mcmcobj McmcObj) {
+//
+//   //Set MCMC object
+//   arma::vec WhichBurnInProgress = McmcObj.WhichBurnInProgress;
+//   int BarLength = McmcObj.BarLength;
+//
+//   //Number of new star in interactive mode
+//   arma::uvec NewStarBoolean = find(s == WhichBurnInProgress);
+//   arma::vec NewStarBooleanVec = arma::conv_to<arma::vec>::from(NewStarBoolean);
+//   int NewStar = NewStarBooleanVec(0);
+//   for (int i = 0; i < (BarLength + 1 - NewStar); i++) Rcpp::Rcout << std::fixed << "\b";
+//   Rcpp::Rcout << std::fixed << "*";
+//   for (int i = 0; i < (BarLength - 1 - NewStar); i++) Rcpp::Rcout << std::fixed << " ";
+//   Rcpp::Rcout << std::fixed << "|";
+//
+// }
+
+
+
 //Update burn-in progress bar----------------------------------------------------------------------------
 void UpdateBurnInBar(int s, mcmcobj McmcObj) {
 
@@ -151,11 +221,10 @@ void UpdateBurnInBar(int s, mcmcobj McmcObj) {
   arma::uvec NewStarBoolean = find(s == WhichBurnInProgress);
   arma::vec NewStarBooleanVec = arma::conv_to<arma::vec>::from(NewStarBoolean);
   int NewStar = NewStarBooleanVec(0);
-  for (int i = 0; i < (BarLength + 1 - NewStar); i++) Rcpp::Rcout << std::fixed << "\b";
-  Rcpp::Rcout << std::fixed << "*";
+  Rcpp::Rcout << std::fixed << "\rBurn-in progress:  |";
+  for (int i = 0; i < NewStar; i++) Rcpp::Rcout << std::fixed << "*";
   for (int i = 0; i < (BarLength - 1 - NewStar); i++) Rcpp::Rcout << std::fixed << " ";
   Rcpp::Rcout << std::fixed << "|";
 
-  //Rcpp::Rcout << std::fixed << NewStar << std::endl;
-
 }
+

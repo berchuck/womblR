@@ -4,7 +4,7 @@
 #'
 #' Calculates diagnostic metrics using output from the \code{\link{STBDwDM}} model.
 #'
-#' @param obj A \code{\link{STBDwDM}} model object for which diagnositcs
+#' @param obj A \code{\link{STBDwDM}} model object for which diagnostics
 #'  are desired from.
 #'
 #' @param diags A vector of character strings indicating the diagnostics to compute.
@@ -24,7 +24,7 @@
 #'  number of parameters estimate pD (Spiegelhalter et al 2002). The d-infinity posterior
 #'  predictive measure is an alternative diagnostic tool to DIC, where d-infinity=P+G.
 #'  The G term decreases as goodness of fit increases, and P, the penalty term, inflates
-#'  as the model becomes overfit, so small values of both of these terms and, thus, small
+#'  as the model becomes over-fit, so small values of both of these terms and, thus, small
 #'  values of d-infinity are desirable (Gelfand and Ghosh 1998). WAIC is invariant to
 #'  parametrization and is asymptotically equal to Bayesian cross-validation
 #'  (Watanabe 2010). WAIC = -2 * (lppd - p_waic_2). Where lppd is the log pointwise
@@ -33,7 +33,7 @@
 #'  estimator).
 #'
 #' @return \code{diagnostics} returns a list containing the diagnostics requested and
-#'  possibly the deviance andor posterior predictive distribution objects.
+#'  possibly the deviance and/or posterior predictive distribution objects.
 #'
 #' @author Samuel I. Berchuck
 #'

@@ -9,7 +9,7 @@
 Rcpp::List STBDwDM_Rcpp(Rcpp::List DatObj_List,  Rcpp::List HyPara_List,
                         Rcpp::List MetrObj_List, Rcpp::List Para_List,
                         Rcpp::List DatAug_List,  Rcpp::List McmcObj_List,
-                        arma::mat RawSamples);
+                        arma::mat RawSamples, bool Interactive);
 
 //STRUCT DEFINITIONS
 struct datobj {
@@ -88,6 +88,7 @@ struct mcmcobj {
   arma::vec WhichKeep;
   arma::vec WhichPilotAdapt;
   arma::vec WhichBurnInProgress;
+  arma::vec WhichBurnInProgressInt;
   arma::vec WhichSamplerProgress;
   arma::vec BurnInProgress;
   int BarLength;
@@ -131,12 +132,13 @@ arma::mat SampleTobit(datobj DatObj, para Para, dataug DatAug);
 datobj SampleY(datobj DatObj, para Para, dataug DatAug);
 
 //MCMC UTILITY FUNCTIONS
-void BeginBurnInProgress(mcmcobj McmcObj);
+void BeginBurnInProgress(mcmcobj McmcObj, bool Interactive);
 Rcpp::List OutputMetrObj(metrobj MetrObj);
 metrobj PilotAdaptation(datobj DatObj, metrobj MetrObj, mcmcobj McmcObj);
 void SamplerProgress(int s, mcmcobj McmcObj);
 arma::colvec StoreSamples(datobj DatObj, para Para);
 void UpdateBurnInBar(int s, mcmcobj McmcObj);
+void UpdateBurnInBarInt(int s, mcmcobj McmcObj);
 
 //UTILITY FUNCTIONS
 arma::mat CholInv(arma::mat const& Cov);

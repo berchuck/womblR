@@ -14,7 +14,7 @@ is.PosteriorAdj(x)
 \code{\link{PosteriorAdj}} object.
 }
 \details{
-The \code{\link{PosteriorAdj}} class is defined as the posterior adjacenct
+The \code{\link{PosteriorAdj}} class is defined as the posterior adjacency
  object that results from the \code{\link{PosteriorAdj}} function.
 }
 

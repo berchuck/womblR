@@ -1,14 +1,13 @@
 #' womblR
 #'
-#' This package provides methods for estimation of multivariate average hazard ratios as defined by Kalbfleisch and Prentice.
-#' The underlying survival functions of the event of interest in each group can be estimated using either the (weighted) Kaplan-Meier estimator or
-#' the Aalen-Johansen estimator for the transition probabilities in Markov multi-state models. Right-censored and left-truncated data is supported.
-#' Moreover, the difference in restricted mean survival can be estimated. Currently variance estimation for the average hazard ratio based on the
-#' Aalen-Johansen estimator is only supported for competing risks models, i.e. for estimation of the average sub-distribution hazard ratio
-#' (Average cause-specific hazard ratios can be estimated by using the Kaplan-Meier estimator with competing risks data).
-#'
-#' Furthermore estimation of quantiles, ratios and differences of quantiles and corresponding p-values and confidence intervals of
-#' survival times based on the (weighted) Kaplan-Meier estimator and the Aalen-Johansen estimator is also supported.
+#' Currently this package implements a spatiotemporal boundary detection
+#' with a dissimilarity metric for areal data with inference in a Bayesian setting
+#' using Markov chain Monte Carlo (MCMC). The response variable can be modeled as
+#' Gaussian (no nugget), probit or Tobit link and spatial correlation is introduced
+#' at each time point through a conditional autoregressive (CAR) prior. Temporal
+#' correlation is introduced through a hierarchical structure and can be specified as
+#' exponential or first-order autoregressive. Full details of the the package can be found
+#' in the accompanying vignette.
 #'
 #' @author Samuel I. Berchuck \email{berchuck@ad.unc.edu}
 #'

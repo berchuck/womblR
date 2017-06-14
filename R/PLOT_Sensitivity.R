@@ -21,7 +21,7 @@
 #'
 #' @param color a vector of character strings representing the color palette.
 #'
-#' @details \code{PlotSensitivity} is used in the application of glaucaom progression to
+#' @details \code{PlotSensitivity} is used in the application of glaucoma progression to
 #'  plot a variable across the visual field in the form of a heat map.
 #'
 #' @examples
@@ -75,7 +75,9 @@ PlotSensitivity <- function(Y = Y, main = "Sensitivity Estimate (dB) at each \nl
   ###Initiate figure with squares
   pardefault <- suppressWarnings(par(no.readonly = T))
   par(mfcol = c(1, 1), pty = "m", mai = c(0, 0, 0.75, 0))
-  plot(1, 1, main = main, type = "n", yaxt = "n", xaxt = "n", bty = "n", xlim = c(-2, 14), ylim = c(2, 7), asp = 1, ylab = "", xlab = "")
+  # plot(1, 1, main = main, type = "n", yaxt = "n", xaxt = "n", bty = "n", xlim = c(-2, 14), ylim = c(2, 7), asp = 1, ylab = "", xlab = "")
+  plot(1, 1, type = "n", yaxt = "n", xaxt = "n", bty = "n", xlim = c(0.5, 13), ylim = c(2, 7), asp = 1, ylab = "", xlab = "")
+  title(main = main, cex.main = 1.7)
   for (i in 1 : 52) {
     x <- Loc[i, 1] + 0.5
     y <- Loc[i ,2] + 0.5

@@ -7,7 +7,7 @@
 PlotAdjacency(Wij, Visit = 1, stat = "mean",
   main = "Estimated Adjacencies", color.scheme = c("Black", "White"),
   edgewidth = 2, cornerwidth = 1/4, lwd.border = 3, color.bs = "gray",
-  zlim = c(0, 1), legend = TRUE, DM = NULL)
+  zlim = c(0, 1), legend = TRUE, DM = NULL, W = NULL)
 }
 \arguments{
 \item{Wij}{a \code{\link{PosteriorAdj}} object.}
@@ -35,24 +35,32 @@ dissimilarity metric at each adjacency.}
 \item{legend}{logical, indicating whether the legend should be present (default = TRUE).}
 
 \item{DM}{a dissimilarity metric to be plotted at each location on the visual field (default = NULL).}
+
+\item{W}{an adjacency matrix that specifies the visual field, required if Wij is not provided (default = NULL).}
 }
 \description{
 Plots a heat map of the differential light sensitivity on the Humphrey Field
 Analyzer-II visual field.
 }
 \details{
-\code{PlotAdjacency} is used in the application of glaucaom progression to
+\code{PlotAdjacency} is used in the application of glaucoma progression to
  plot the posterior mean and standard deviation neighborhood adjacencies across the
  visual field.
 }
 \examples{
 \dontrun{
+###Define blind spot locations on the HFA-II
+blind_spot <- c(26, 35)
+
+###Load visual field adjacency matrix
+W <- HFAII_Queen[ -blind_spot, -blind_spot]
+
 ###Load Garway-Heath angles for dissimiliarity metric
 DM <- GarwayHeath[-blind_spot] #Uses Garway-Heath angles object "GarwayHeath"
 
 ###Adjacency plots
-ColorScheme1 <- c("Black", "#636363", "#bdbdbd", "#f0f0f0", "White")
-PlotAdjacency(Wij, Visit = NA, main = "", zlim = c(0, 180), DM = DM)
+PlotAdjacency(W = W, DM = DM, zlim = c(0, 180), Visit = NA,
+              main = "Garway-Heath dissimilarity metric\\n across the visual field")
 }
 
 }

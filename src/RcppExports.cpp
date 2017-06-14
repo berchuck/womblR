@@ -119,8 +119,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // STBDwDM_Rcpp
-Rcpp::List STBDwDM_Rcpp(Rcpp::List DatObj_List, Rcpp::List HyPara_List, Rcpp::List MetrObj_List, Rcpp::List Para_List, Rcpp::List DatAug_List, Rcpp::List McmcObj_List, arma::mat RawSamples);
-RcppExport SEXP womblR_STBDwDM_Rcpp(SEXP DatObj_ListSEXP, SEXP HyPara_ListSEXP, SEXP MetrObj_ListSEXP, SEXP Para_ListSEXP, SEXP DatAug_ListSEXP, SEXP McmcObj_ListSEXP, SEXP RawSamplesSEXP) {
+Rcpp::List STBDwDM_Rcpp(Rcpp::List DatObj_List, Rcpp::List HyPara_List, Rcpp::List MetrObj_List, Rcpp::List Para_List, Rcpp::List DatAug_List, Rcpp::List McmcObj_List, arma::mat RawSamples, bool Interactive);
+RcppExport SEXP womblR_STBDwDM_Rcpp(SEXP DatObj_ListSEXP, SEXP HyPara_ListSEXP, SEXP MetrObj_ListSEXP, SEXP Para_ListSEXP, SEXP DatAug_ListSEXP, SEXP McmcObj_ListSEXP, SEXP RawSamplesSEXP, SEXP InteractiveSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -131,7 +131,8 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< Rcpp::List >::type DatAug_List(DatAug_ListSEXP);
     Rcpp::traits::input_parameter< Rcpp::List >::type McmcObj_List(McmcObj_ListSEXP);
     Rcpp::traits::input_parameter< arma::mat >::type RawSamples(RawSamplesSEXP);
-    rcpp_result_gen = Rcpp::wrap(STBDwDM_Rcpp(DatObj_List, HyPara_List, MetrObj_List, Para_List, DatAug_List, McmcObj_List, RawSamples));
+    Rcpp::traits::input_parameter< bool >::type Interactive(InteractiveSEXP);
+    rcpp_result_gen = Rcpp::wrap(STBDwDM_Rcpp(DatObj_List, HyPara_List, MetrObj_List, Para_List, DatAug_List, McmcObj_List, RawSamples, Interactive));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -204,7 +205,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"womblR_GetLogLik", (DL_FUNC) &womblR_GetLogLik, 4},
     {"womblR_GetLogLikMean", (DL_FUNC) &womblR_GetLogLikMean, 3},
     {"womblR_SamplePPD", (DL_FUNC) &womblR_SamplePPD, 3},
-    {"womblR_STBDwDM_Rcpp", (DL_FUNC) &womblR_STBDwDM_Rcpp, 7},
+    {"womblR_STBDwDM_Rcpp", (DL_FUNC) &womblR_STBDwDM_Rcpp, 8},
     {"womblR_ThetaKrigging", (DL_FUNC) &womblR_ThetaKrigging, 3},
     {"womblR_YKrigging", (DL_FUNC) &womblR_YKrigging, 3},
     {"womblR_CholInv", (DL_FUNC) &womblR_CholInv, 1},

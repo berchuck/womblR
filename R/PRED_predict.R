@@ -59,7 +59,7 @@ predict.STBDwDM <- function(object, NewTimes, ...) {
   TimeFixed <- DatObj$Time
   Time <- sort(c(TimeFixed, NewTimes))
   TimeDist <- abs(outer(Time, Time, "-" ))
-  NNewVisits <- length(NewVisits)
+  NNewVisits <- length(NewTimes)
   NewVisits <- OriginalVisits <- NULL
   for (i in 1:NNewVisits) NewVisits <- c(NewVisits, which(NewTimes[i] == Time) - 1)
   for (i in 1:Nu) OriginalVisits <- c(OriginalVisits, which(TimeFixed[i] == Time) - 1)

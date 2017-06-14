@@ -190,6 +190,7 @@ mcmcobj ConvertMcmcObj(Rcpp::List McmcObj_List) {
   arma::vec WhichKeep = McmcObj_List["WhichKeep"];
   arma::vec WhichPilotAdapt = McmcObj_List["WhichPilotAdapt"];
   arma::vec WhichBurnInProgress = McmcObj_List["WhichBurnInProgress"];
+  arma::vec WhichBurnInProgressInt = McmcObj_List["WhichBurnInProgressInt"];
   arma::vec WhichSamplerProgress = McmcObj_List["WhichSamplerProgress"];
   arma::vec BurnInProgress = McmcObj_List["BurnInProgress"];
   int BarLength = McmcObj_List["BarLength"];
@@ -206,6 +207,7 @@ mcmcobj ConvertMcmcObj(Rcpp::List McmcObj_List) {
   McmcObj.WhichKeep = WhichKeep;
   McmcObj.WhichPilotAdapt = WhichPilotAdapt;
   McmcObj.WhichBurnInProgress = WhichBurnInProgress;
+  McmcObj.WhichBurnInProgressInt = WhichBurnInProgressInt;
   McmcObj.WhichSamplerProgress = WhichSamplerProgress;
   McmcObj.BurnInProgress = BurnInProgress;
   McmcObj.PilotAdaptDenominator = PilotAdaptDenominator;

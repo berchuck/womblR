@@ -2,11 +2,12 @@
 % Please edit documentation in R/MCMC_STBDwDM.R
 \name{STBDwDM}
 \alias{STBDwDM}
-\title{MCMC sampler for spatio-temporal boundary detection with dissimilarity metric.}
+\title{MCMC sampler for spatiotemporal boundary detection with dissimilarity metric.}
 \usage{
 STBDwDM(Y, DM, W, Time, Starting = NULL, Hypers = NULL, Tuning = NULL,
   MCMC = NULL, Family = "tobit", TemporalStructure = "exponential",
-  Distance = "circumference", Rho = 0.99, ScaleY = 10, ScaleDM = 100)
+  Distance = "circumference", Rho = 0.99, ScaleY = 10, ScaleDM = 100,
+  Seed = 54)
 }
 \arguments{
 \item{Y}{An \code{N} dimensional vector containing the observed outcome data.
@@ -20,7 +21,7 @@ for each spatial location. The order of the spatial locations must match the ord
 \code{Y}.}
 
 \item{W}{An \code{M x M} dimensional binary adjacency matrix for dictating the
-spatial neigbourhood structure.}
+spatial neigborhood structure.}
 
 \item{Time}{A \code{Nu} dimensional vector containing the observed time points for each
 vector of outcomes in increasing order.}
@@ -100,11 +101,14 @@ By default it is fixed at \code{0.99} as suggested by Lee and Mitchell (2012).}
 
 \item{ScaleY}{A positive scalar used for scaling the observed data, \code{Y}. This is
 used to aid numerically for MCMC convergence, as scaling large observations often
-stabalizes chains. By default it is fixed at \code{10}.}
+stabilizes chains. By default it is fixed at \code{10}.}
 
 \item{ScaleDM}{A positive scalar used for scaling the dissimilarity metric distances,
 \code{DM}. This is used to aid numerically for MCMC convergence. as scaling spatial
 distances is often used for improved MCMC convergence. By default it is fixed at \code{100}.}
+
+\item{Seed}{An integer value used to set the seed for the random number generator
+(default = 54).}
 }
 \value{
 \code{STBDwDM} returns a list containing the following objects

@@ -27,7 +27,7 @@ was observed.}
 Plots a time series at each location of the Humphrey Field Analyzer-II visual field .
 }
 \details{
-\code{PlotVfTimeSeries} is used in the application of glaucaom progression.
+\code{PlotVfTimeSeries} is used in the application of glaucoma progression.
  In each cell is the observed DLS at each location over visits, with the red line
  representing a linear regression trend.
 }

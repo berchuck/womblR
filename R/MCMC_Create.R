@@ -378,7 +378,6 @@ CreateMcmc <- function(MCMC, DatObj) {
   if (!is.wholenumber(NSims / NThin)) stop('MCMC: "NThin" must be a factor of "NSims"')
   if (!is.wholenumber(NBurn / NPilot)) stop('MCMC: "NPilot" must be a factor of "NBurn"')
 
-
   ###Create MCMC objects
   NTotal <- NBurn + NSims
   WhichKeep <- NBurn + ( 1 : (NSims / NThin) ) * NThin
@@ -396,6 +395,8 @@ CreateMcmc <- function(MCMC, DatObj) {
   ###Progress output objects
   SamplerProgress <- seq(0.1, 1.0, 0.1) #Intervals of progress update (arbitrary)
   WhichSamplerProgress <- sapply(SamplerProgress, function(x) tail(which(1 : NSims <= x * NSims), 1)) + NBurn
+  WhichBurnInProgressInt <- sapply(SamplerProgress, function(x) tail(which(1 : NBurn <= x * NBurn), 1))
+
 
   ###Save objects
   MCMC <- list()
@@ -410,6 +411,7 @@ CreateMcmc <- function(MCMC, DatObj) {
   MCMC$PilotAdaptDenominator <- PilotAdaptDenominator
   MCMC$BurnInProgress <- BurnInProgress
   MCMC$WhichBurnInProgress <- WhichBurnInProgress
+  MCMC$WhichBurnInProgressInt <- WhichBurnInProgressInt
   MCMC$BarLength <- BarLength
   MCMC$WhichSamplerProgress <- WhichSamplerProgress
   return(MCMC)

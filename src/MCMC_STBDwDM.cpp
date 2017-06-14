@@ -8,7 +8,7 @@
 Rcpp::List STBDwDM_Rcpp(Rcpp::List DatObj_List,  Rcpp::List HyPara_List,
                         Rcpp::List MetrObj_List, Rcpp::List Para_List,
                         Rcpp::List DatAug_List,  Rcpp::List McmcObj_List,
-                        arma::mat RawSamples) {
+                        arma::mat RawSamples, bool Interactive) {
 
   //Convet Rcpp::Lists to C++ structs
   datobj DatObj = ConvertDatObj(DatObj_List);
@@ -25,11 +25,12 @@ Rcpp::List STBDwDM_Rcpp(Rcpp::List DatObj_List,  Rcpp::List HyPara_List,
   arma::vec WhichPilotAdapt = McmcObj.WhichPilotAdapt;
   arma::vec WhichKeep = McmcObj.WhichKeep;
   arma::vec WhichBurnInProgress = McmcObj.WhichBurnInProgress;
+  arma::vec WhichBurnInProgressInt = McmcObj.WhichBurnInProgressInt;
   arma::vec WhichSamplerProgress = McmcObj.WhichSamplerProgress;
   std::pair<para, metrobj> Update;
 
   //User output
-  BeginBurnInProgress(McmcObj);
+  BeginBurnInProgress(McmcObj, Interactive);
 
   //Begin MCMC Sampler
   for (int s = 1; s < NTotal + 1; s++) {
@@ -69,8 +70,10 @@ Rcpp::List STBDwDM_Rcpp(Rcpp::List DatObj_List,  Rcpp::List HyPara_List,
       MetrObj = PilotAdaptation(DatObj, MetrObj, McmcObj);
 
     //Update burn-in progress bar
-    if (std::find(WhichBurnInProgress.begin(), WhichBurnInProgress.end(), s) != WhichBurnInProgress.end())
+    if (Interactive) if (std::find(WhichBurnInProgress.begin(), WhichBurnInProgress.end(), s) != WhichBurnInProgress.end())
       UpdateBurnInBar(s, McmcObj);
+    if (!Interactive) if (std::find(WhichBurnInProgressInt.begin(), WhichBurnInProgressInt.end(), s) != WhichBurnInProgressInt.end())
+      UpdateBurnInBarInt(s, McmcObj);
 
     //Store raw samples
     if (std::find(WhichKeep.begin(), WhichKeep.end(), s) != WhichKeep.end())

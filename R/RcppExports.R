@@ -33,8 +33,8 @@ SamplePPD <- function(DatObj_List, Para_List, NKeep) {
     .Call('womblR_SamplePPD', PACKAGE = 'womblR', DatObj_List, Para_List, NKeep)
 }
 
-STBDwDM_Rcpp <- function(DatObj_List, HyPara_List, MetrObj_List, Para_List, DatAug_List, McmcObj_List, RawSamples) {
-    .Call('womblR_STBDwDM_Rcpp', PACKAGE = 'womblR', DatObj_List, HyPara_List, MetrObj_List, Para_List, DatAug_List, McmcObj_List, RawSamples)
+STBDwDM_Rcpp <- function(DatObj_List, HyPara_List, MetrObj_List, Para_List, DatAug_List, McmcObj_List, RawSamples, Interactive) {
+    .Call('womblR_STBDwDM_Rcpp', PACKAGE = 'womblR', DatObj_List, HyPara_List, MetrObj_List, Para_List, DatAug_List, McmcObj_List, RawSamples, Interactive)
 }
 
 ThetaKrigging <- function(DatObj_List, Para_List, NKeep) {

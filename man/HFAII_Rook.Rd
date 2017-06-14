@@ -3,9 +3,9 @@
 \docType{data}
 \name{HFAII_Rook}
 \alias{HFAII_Rook}
-\title{HFAII Rook Adjacecny Matrix}
-\format{This adjacency matrix is formated using rook neighbor criteria, meaning two locations on 
- the visual field are only considered neighbors if they share an edge. The adjacency matrix is a 
+\title{HFAII Rook Adjacency Matrix}
+\format{This adjacency matrix is formated using rook neighbor criteria, meaning two locations on
+ the visual field are only considered neighbors if they share an edge. The adjacency matrix is a
  54 x 54 dimensional binary object with zeros on the diagonal and the column and row sums are equal
  to the number of neighbors.}
 \usage{
