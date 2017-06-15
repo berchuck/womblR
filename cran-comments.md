@@ -10,4 +10,4 @@ There was 1 NOTE:
 
 * New submission
 
-###This NOTE does not impact the build of the package.
+###This is a new submission, so this NOTE can not be removed. But, it does not impact the build of the package.
