@@ -1,7 +1,7 @@
 #' MCMC sampler for spatiotemporal boundary detection with dissimilarity metric.
 #'
-#' \code{STBDwDM} is an MCMC sampler for the methodology proposed by Berchuck and
-#' Warren in \emph{The title of our paper} (2017).
+#' \code{STBDwDM} is a Markov chain Monte Carlo (MCMC) sampler for a spatiotemporal
+#'  boundary detection model using the Bayesian hierarchical framework.
 #'
 #' @param Y An \code{N} dimensional vector containing the observed outcome data.
 #'  Here, \code{N = M * Nu}, where \code{M} represents the number of spatial locations
@@ -103,7 +103,8 @@
 #' @param Seed An integer value used to set the seed for the random number generator
 #'  (default = 54).
 #'
-#' @details Discuss the methodology of the paper that we will publish and reference the paper.
+#' @details Details of the underlying statistical model proposed by proposed by
+#'  Berchuck et al. 2017. are forthcoming.
 #'
 #' @return \code{STBDwDM} returns a list containing the following objects
 #'
@@ -143,7 +144,7 @@
 #'   }
 #'
 #' @author Samuel I. Berchuck
-#' @references Berchuck et al. 2017.
+#' @references Reference for Berchuck et al. 2017 is forthcoming.
 #' @export
 STBDwDM <- function(Y, DM, W, Time, Starting = NULL, Hypers = NULL, Tuning = NULL,
 			 		          MCMC = NULL, Family = "tobit", TemporalStructure = "exponential",

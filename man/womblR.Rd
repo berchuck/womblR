@@ -6,7 +6,7 @@
 \alias{womblR-package}
 \title{womblR}
 \description{
-Currently this package implements a spatiotemporal boundary detection
+This package implements a spatiotemporal boundary detection
 with a dissimilarity metric for areal data with inference in a Bayesian setting
 using Markov chain Monte Carlo (MCMC). The response variable can be modeled as
 Gaussian (no nugget), probit or Tobit link and spatial correlation is introduced

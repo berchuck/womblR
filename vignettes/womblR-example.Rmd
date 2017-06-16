@@ -4,7 +4,7 @@ author: "Samuel I. Berchuck"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{womblR-example}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -14,14 +14,14 @@ vignette: >
 This is a brief description of how to use the `womblR` package within the context of glaucoma progression. We begin by loading the package.
 
 ```{r, echo = FALSE}
-# ###Start with a clean space
+###Start with a clean space
 # rm(list = ls())
-# 
-# ###Take care of some stuff that I don't want the user to see...
+
+###Take care of some stuff that I don't want the user to see...
 # path.package <- "/Users/Sam/Documents/Sam/School/Dissertation/Packages/womblR/"
 # suppressMessages(devtools::load_all(path.package)) #loads scripts
 # suppressMessages(devtools::document(path.package)) #creates documentation
-# ###Make sure to remove devtools from Suggests line in DESCRIPTION before submission
+###Make sure to remove devtools from Suggests line in DESCRIPTION before submission
 ```
 ```{r}
 library(womblR)
@@ -46,7 +46,7 @@ PlotVfTimeSeries(Y = VFSeries$DLS,
 
 The figure above demonstrates the visual field from a Humphrey Field Analyzer-II testing machine, which generates 54 spatial locations (only 52 informative locations, note the 2 blanks spots corresponding to the blind spot). At each visual field test a patient is assessed for vision loss.
 
-### Format data for `STBDwDM`
+## Format data for `STBDwDM`
 
 We can now begin to think about preparing objects for use in the the Spatiotemporal Boundary Detection with Dissimilarity Metric model function (`STBDwDM`). According to the manual, the observed data `Y` must be first ordered spatially and then temporally. Furthermore, we will remove all locations that correspond to the natural blind spot (which in the Humphrey Field Analyzer-II correspond to locations 26 and 35).
 
@@ -67,7 +67,7 @@ print(Time)
 
 Our example patient has nine visual field visits and the last visit occured 2.57 years after the baseline visit. 
 
-### Adjacency matrix and dissimilarity metric
+## Adjacency matrix and dissimilarity metric
 
 We now specify the adjacency matrix, `W`, and dissimilarity metric, `DM`. There are three adjacency matrices for the Humphrey Field Analyzer-II visual field that are supplied by the `womblR` package, `HFAII_Queen`, `HFAII_QueenHF`, and `HFAII_Rook`. `HFAII_Queen` and `HFAII_QueenHF` both define adjacencies as edges and corners (i.e. the movements of a queen in chess), while `HFAII_Rook` only defines an adjacency as a neighbor that shares an edge (i.e. a rook in chess). The `HFAII_QueenHF` adjacency matrix does not allow neighbors to share information between the northern and southern hemispheres of the visual field. In this analysis we use the standard queen specification. The adjacency objects are preloaded and contain the blind spot, so we define our adjacency matrix as follows.
 
@@ -90,7 +90,7 @@ PlotAdjacency(W = W, DM = DM, zlim = c(0, 180), Visit = NA,
 
 Now that we have specified the data objects `Y`, `DM`, `W` and `Time` we will customize the objects that characterize Bayesian Markov chain Monte Carlo (MCMC) methods, in particular hyperparameters, starting values, metroplis tuning values and MCMC inputs. 
 
-### MCMC Characteristics
+## MCMC Characteristics
 
 We begin be specifying the hyperparameters for the model. The parameter $\phi$ is uniformly distributed with bounds, $a_{\phi}$ and $b_{\phi}$. The bounds for $\phi$ cannot be specified arbitrarily since it is important to account for the magnitude of time elapsed. We specify the following upper and lower bounds for $\phi$ to dictate temporal correlation close to independence or strong correlation, resulting in a weakly informative prior distribution. 
 
@@ -129,10 +129,10 @@ Tuning <- list(Theta2 = rep(1, Nu), Theta3 = rep(1, Nu), Phi = 1)
 We set `Tuning` to the default setting of all ones and let the pilot adaptation in the burn-in phase tune the acceptance rates to the appropriate range. Finally, we set the MCMC inputs using the `MCMC` list object. 
 
 ```{r}
-MCMC <- list(NBurn = 10000, NSims = 100000, NThin = 10, NPilot = 20)
+MCMC <- list(NBurn = 10000, NSims = 10000, NThin = 10, NPilot = 20)
 ```
 
-We specify that our model will run for a burn-in period of 10,000 scans, followed by 250,000 scans after burn-in. In the burn-in period there will be 20 iterations of pilot adaptation evenly spaced out over the period. Finally, the final number of samples to be used for inference will be thinned down to 10,000 based on the thinning number of 10. 
+We specify that our model will run for a burn-in period of 10,000 scans, followed by 10,000 scans after burn-in. In the burn-in period there will be 20 iterations of pilot adaptation evenly spaced out over the period. Finally, the final number of samples to be used for inference will be thinned down to 1,000 based on the thinning number of 10. We suggest running the sampler 250,000 iterations after burn-in, but in the vignette we are limited by compilation time. 
 
 ## Spatiotemporal boundary dection with dissimilarity metric model
 
@@ -196,13 +196,13 @@ traceplot(T[, 1], ylab = expression(paste(T['1,1'])), main = expression(paste("P
 traceplot(Phi, ylab = expression(phi), main = expression(paste("Posterior" ~ phi)))
 ```
 
-From the figure, it is clear that there are no convergence issues as the traceplots demonstrate uniform patterns across the plots and shown no autocorrelation. Furthermore, the traceplots have clearly converged to a stationary distribution. Finally, we present the corresponding test statistics from the Geweke diagnostic test.
+From the figure, it is clear that the traceplots exhibit some poor behavior. However, these traceplots are nicely behaved considering the number of iterations the MCMC sampler ran. The traceplots demonstrate that the parameters have converged to their stationary distribution, but still need more samples to rid themselves of autocorrelation. Finally, we present the corresponding test statistics from the Geweke diagnostic test.
 
 ```{r, echo = FALSE}
 c(geweke.diag(Mu)$z[1], geweke.diag(Tau2)$z[1], geweke.diag(Alpha)$z[1],geweke.diag(Delta)$z[1], geweke.diag(T)$z[1],geweke.diag(Phi)$z)
 ```
 
-From these test statistics we can see that since none are terribly large in the absolute value that there is no strong evidence that our model did not converge. 
+Since none of these test statistics are terribly large in the absolute value there is not strong evidence that our model did not converge. 
 
 ## Post model fit analysis 
 
@@ -325,7 +325,7 @@ You can plot a heat map representation of the posterior prediction distribution 
 ```{r, fig.align = 'center', fig.width = 5.5, fig.height = 5.5}
 PlotSensitivity(Y = apply(Predictions$Y$y10, 2, median),
                 main = "Sensitivity estimate (dB) at each \n location on visual field",
-                legend.lab = "DLS (dB)",
+                legend.lab = "DLS (dB)", legend.round = 2,
                 bins = 250, border = FALSE)
 ```
 

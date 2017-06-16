@@ -6,24 +6,17 @@
 #' Analyzer-II visual field.
 #'
 #' @param Y variable to be plotted on the visual field (e.g. differential light sensitivity).
-#'
 #' @param main an overall title for the plot.
-#'
-#' @param legend.lab a label for the legend (default = "DLS (dB)").
-#'
 #' @param zlim the limits used for the legend (default are the minimum and maximum of Y).
-#'
-#' @param bins the number of bins used to refine the color palette for the figure and legend.
-#'
-#' @param border logical, indicating whether there should be a border around the visual field (default = TRUE).
-#'
-#' @param legend logical, indicating whether the legend should be present (default = TRUE).
-#'
 #' @param color a vector of character strings representing the color palette.
-#'
+#' @param bins the number of bins used to refine the color palette for the figure and legend.
+#' @param legend logical, indicating whether the legend should be present (default = TRUE).
+#' @param legend.lab a label for the legend (default = "DLS (dB)").
+#' @param legend.round integer, indicating the digits that the legend labels are rounded to
+#'  (default = 0).
+#' @param border logical, indicating whether there should be a border around the visual field (default = TRUE).
 #' @details \code{PlotSensitivity} is used in the application of glaucoma progression to
 #'  plot a variable across the visual field in the form of a heat map.
-#'
 #' @examples
 #' \dontrun{
 #' data(VFSeries)
@@ -33,13 +26,11 @@
 #'                   zlim = c(10, 35),
 #'                   bins = 250)
 #' }
-#'
 #' @author Samuel I. Berchuck
-#'
 #' @export
 PlotSensitivity <- function(Y = Y, main = "Sensitivity Estimate (dB) at each \nlocation on visual field",
                             legend.lab = "DLS (dB)", zlim, bins = 100, border = TRUE, legend = TRUE,
-                            color = c("yellow", "orange", "red")) {
+                            color = c("yellow", "orange", "red"), legend.round = 0) {
 
   ##Note: Depends on library classInt
   # You need the suggested package for this function
@@ -63,8 +54,7 @@ PlotSensitivity <- function(Y = Y, main = "Sensitivity Estimate (dB) at each \nl
 
   ###Create plotting functions
   square <- function(x, y, col) symbols(x, y, squares = 1, fg = col, bg = col, inches = FALSE, add = TRUE)
-  format2<-function(x) format(round(x,2),nsmall=2)
-  format0<-function(x) format(round(x,0),nsmall=0)
+  format0<-function(x, legend.round) format(round(x,legend.round),nsmall=legend.round)
 
   ###Get square coordinates
   Loc <- data.frame(x = c(4:7, 3:8, 2:9, 1:9, 1:9, 2:9, 3:8, 4:7), y = c(rep(1, 4), rep(2, 6), rep(3, 8), rep(4, 9), rep(5, 9), rep(6, 8), rep(7, 6), rep(8, 4)))
@@ -116,7 +106,7 @@ PlotSensitivity <- function(Y = Y, main = "Sensitivity Estimate (dB) at each \nl
     segments(11 ,7 ,11.75, 7, lwd = 1.5)
     segments(11 ,3 ,11.75, 3, lwd = 1.5)
     for (i in 1 : length(LegendPV)) {
-      text(12.75, (3:7)[i], format0(LegendPV[i]))
+      text(12.75, (3:7)[i], format0(LegendPV[i], legend.round))
       segments(11.75, (3:7)[i], 12, (3:7)[i], lwd = 1.5)
     }
     text(11.5, 7.5, legend.lab)

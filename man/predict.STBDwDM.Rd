@@ -41,7 +41,4 @@ Predicts future observations from the \code{\link{STBDwDM}} model.
 \author{
 Samuel I. Berchuck
 }
-\references{
-Berchuck et al. 2017.
-}
 

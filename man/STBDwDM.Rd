@@ -149,16 +149,17 @@ distances is often used for improved MCMC convergence. By default it is fixed at
   }
 }
 \description{
-\code{STBDwDM} is an MCMC sampler for the methodology proposed by Berchuck and
-Warren in \emph{The title of our paper} (2017).
+\code{STBDwDM} is a Markov chain Monte Carlo (MCMC) sampler for a spatiotemporal
+ boundary detection model using the Bayesian hierarchical framework.
 }
 \details{
-Discuss the methodology of the paper that we will publish and reference the paper.
+Details of the underlying statistical model proposed by proposed by
+ Berchuck et al. 2017. are forthcoming.
 }
 \author{
 Samuel I. Berchuck
 }
 \references{
-Berchuck et al. 2017.
+Reference for Berchuck et al. 2017 is forthcoming.
 }
 

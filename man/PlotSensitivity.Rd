@@ -7,7 +7,7 @@
 PlotSensitivity(Y = Y,
   main = "Sensitivity Estimate (dB) at each \\nlocation on visual field",
   legend.lab = "DLS (dB)", zlim, bins = 100, border = TRUE,
-  legend = TRUE, color = c("yellow", "orange", "red"))
+  legend = TRUE, color = c("yellow", "orange", "red"), legend.round = 0)
 }
 \arguments{
 \item{Y}{variable to be plotted on the visual field (e.g. differential light sensitivity).}
@@ -25,6 +25,9 @@ PlotSensitivity(Y = Y,
 \item{legend}{logical, indicating whether the legend should be present (default = TRUE).}
 
 \item{color}{a vector of character strings representing the color palette.}
+
+\item{legend.round}{integer, indicating the digits that the legend labels are rounded to
+(default = 0).}
 }
 \description{
 Plots a heat map of the differential light sensitivity on the Humphrey Field
@@ -43,7 +46,6 @@ PlotSensitivity(Y = VFSeries$DLS[VFSeries$Visit == 1],
                   zlim = c(10, 35),
                   bins = 250)
 }
-
 }
 \author{
 Samuel I. Berchuck

@@ -31,9 +31,6 @@
 #'   }
 #'
 #' @author Samuel I. Berchuck
-#'
-#' @references Berchuck et al. 2017.
-#'
 #' @export
 ###Prediction function for spBDwDM function
 predict.STBDwDM <- function(object, NewTimes, ...) {
