@@ -32,7 +32,6 @@ Plots a time series at each location of the Humphrey Field Analyzer-II visual fi
  representing a linear regression trend.
 }
 \examples{
-\dontrun{
 data(VFSeries)
 PlotVfTimeSeries(Y = VFSeries$DLS,
                   Location = VFSeries$Location,
@@ -41,7 +40,6 @@ PlotVfTimeSeries(Y = VFSeries$DLS,
                   xlab = "Days from baseline visit",
                   ylab = "Differential light sensitivity (dB)")
 
-}
 
 }
 \author{

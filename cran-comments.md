@@ -1,11 +1,9 @@
 ## Resubmission
 This is a resubmission. In this version I have:
 
-* Updated the Description section of DESCRIPTION to be more appropriate.
+* Addressed the comment, "All your examples are wrapped in \dontrun{}  and hence do not get tested. Please unwrap them or provide toy examples outside of \dontrun{} that execute in < 5 sec for each Rd file.""
 
-* Addressing the comment "Is there some reference about the method you can add in the Description field in the form Authors (year) <doi:.....>?". 
-  
-  -There is currently no reference for this methodology. There is a paper that is to be submitted to a journal in the next month and then a version of the manuscript will be placed on arXiv.org. I plan on updating the womblR R package with the arXiv.org reference when it is available (and then the journal reference when it is published). 
+  -I have unwrapped the examples from \dontrun{}.
 
 ## Test environments
 * Mac: x86_64-apple-darwin13.4.0 (64-bit), R 3.3.0

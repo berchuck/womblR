@@ -38,7 +38,6 @@
 #'  visual field.
 #'
 #' @examples
-#' \dontrun{
 #' ###Define blind spot locations on the HFA-II
 #' blind_spot <- c(26, 35)
 #'
@@ -51,7 +50,6 @@
 #' ###Adjacency plots
 #' PlotAdjacency(W = W, DM = DM, zlim = c(0, 180), Visit = NA,
 #'               main = "Garway-Heath dissimilarity metric\n across the visual field")
-#' }
 #'
 #' @author Samuel I. Berchuck
 #'

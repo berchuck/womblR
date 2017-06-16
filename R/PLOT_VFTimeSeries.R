@@ -23,7 +23,6 @@
 #'  representing a linear regression trend.
 #'
 #' @examples
-#' \dontrun{
 #' data(VFSeries)
 #' PlotVfTimeSeries(Y = VFSeries$DLS,
 #'                   Location = VFSeries$Location,
@@ -32,7 +31,6 @@
 #'                   xlab = "Days from baseline visit",
 #'                   ylab = "Differential light sensitivity (dB)")
 #'
-#' }
 #'
 #' @author Samuel I. Berchuck
 #'

@@ -18,14 +18,12 @@
 #' @details \code{PlotSensitivity} is used in the application of glaucoma progression to
 #'  plot a variable across the visual field in the form of a heat map.
 #' @examples
-#' \dontrun{
 #' data(VFSeries)
 #' PlotSensitivity(Y = VFSeries$DLS[VFSeries$Visit == 1],
 #'                   main = "Sensitivity estimate (dB) at each \n location on visual field",
 #'                   legend.lab = "DLS (dB)",
 #'                   zlim = c(10, 35),
 #'                   bins = 250)
-#' }
 #' @author Samuel I. Berchuck
 #' @export
 PlotSensitivity <- function(Y = Y, main = "Sensitivity Estimate (dB) at each \nlocation on visual field",
