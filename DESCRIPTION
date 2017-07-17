@@ -9,7 +9,7 @@ Description: Implements a spatiotemporal boundary detection model with a dissimi
     through a conditional autoregressive (CAR) prior. Temporal correlation is introduced
     through a hierarchical structure and can be specified as exponential or first-order
     autoregressive. Full details of the package can be found in the accompanying vignette.
-Date: 2017-06-15
+Date: 2017-07-17
 Authors@R: person("Samuel I.", "Berchuck", email = "berchuck@ad.unc.edu", role = c("aut", "cre"))
 License: GPL (>= 3)
 Encoding: UTF-8
