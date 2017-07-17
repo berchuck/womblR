@@ -18,6 +18,13 @@
 #'
 #' @param ylab a title for the y axis.
 #'
+#' @param line.col color for the regression line, either character string corresponding
+#'  to a color or a integer (default = "red").
+#'
+#' @param line.reg logical, determines if there are regression lines printed (default = TRUE).
+#'
+#' @param line.type integer, specifies the type of regression line printed (default = 1).
+#'
 #' @details \code{PlotVfTimeSeries} is used in the application of glaucoma progression.
 #'  In each cell is the observed DLS at each location over visits, with the red line
 #'  representing a linear regression trend.
@@ -38,15 +45,30 @@
 PlotVfTimeSeries <- function(Y, Location, Time,
                              main = "Visual field sensitivity time series \n at each location",
                              xlab = "Time from first visit (days)",
-                             ylab = "Sensitivity (dB)") {
+                             ylab = "Sensitivity (dB)",
+                             line.col = "red",
+                             line.reg = TRUE,
+                             line.type = 1) {
+
+  ###Logical function to check for colors
+  areColors <- function(x) {
+    sapply(x, function(X) {
+      tryCatch(is.matrix(col2rgb(X)),
+               error = function(e) FALSE)
+    })
+  }
 
   ###Check Inputs
+  is.wholenumber <- function(x, tol = .Machine$double.eps^0.5) abs(x - round(x)) < tol
   if (missing(Y)) stop('"Y" is missing')
   if (missing(Location)) stop('"Location" is missing')
   if (missing(Time)) stop('"Time" is missing')
   if (!is.character(main)) stop('"main" must be a character string')
   if (!is.character(xlab)) stop('"xlab" must be a character string')
   if (!is.character(ylab)) stop('"ylab" must be a character string')
+  if (!any(areColors(line.col))) stop('"line.col" can only include colors')
+  if (!is.logical(line.reg)) stop('"line.reg" must be a logical')
+  if (!is.wholenumber(line.type)) stop('"line.type" must be an integer')
 
   ###Function inputs
   # Y <- YObserved
@@ -92,7 +114,7 @@ PlotVfTimeSeries <- function(Y, Location, Time,
       ph <- VF[VF$Location == i, ]
       plot(ph[ , 2], ph[ , 3], type = "l", xaxt = "n", yaxt = "n", xlim = c(0, max.Time), ylim = c(0, 40))
       points(ph[ , 2], ph[ , 3], pch = ".")
-      abline(lm(ph[ , 3] ~ ph[ , 2]), col = "red")
+      if (line.reg) abline(lm(ph[ , 3] ~ ph[ , 2]), col = line.col, lty = line.type)
     }
     if (i %in% blind_spot) plot(ph[ , 2], ph[ , 3], type = "n", xaxt = "n", yaxt = "n", xlim = c(0, max.Time), ylim = c(0, 40))
     if (i %in% c(52, 54)) axis(1, at = x_breaks)

@@ -15,6 +15,7 @@ struct datobjPRED {
   int FamilyInd;
   int TempCorInd;
   int NNewVisits;
+  int WeightsInd;
   arma::vec YObserved;
   arma::mat YStarWide;
   arma::mat W;
@@ -38,7 +39,7 @@ struct paraPRED {
 
 //COVARIANCE FUNCTIONS
 arma::cube JointCovarianceCube(arma::cube const& WAlphas, arma::vec const& Tau2, arma::mat const& EyeM, double Rho, int M, int Nu);
-arma::cube WAlphaCube(arma::vec const& Alpha, arma::vec const& Z, arma::umat const& AdjacentEdgesBoolean, arma::mat const& W, int M, int Nu);
+arma::cube WAlphaCube(arma::vec const& Alpha, arma::colvec const& Z, arma::mat const& W, int M, int Nu, int WeightsInd);
 arma::mat SIGMA(double Phi, int TempCorInd, arma::mat const& DayDist, int Nu);
 
 //PREDICTION FUNCTIONS

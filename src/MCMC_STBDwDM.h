@@ -22,6 +22,7 @@ struct datobj {
   int NTheta;
   int TempCorInd;
   int FamilyInd;
+  int WeightsInd;
   arma::mat YStarWide;
   arma::vec DM;
   arma::mat W;
@@ -101,15 +102,16 @@ arma::cube JointCovarianceCube(arma::cube const& WAlphas, arma::vec const& Tau2,
 arma::mat JointCovarianceMatrix(arma::mat const& WAlpha, double tau2, arma::mat const& EyeM, double Rho, int M);
 arma::cube JointPrecisionCube(arma::cube const& WAlphas, arma::vec const& Tau2, arma::mat const& EyeM, double Rho, int M, int Nu);
 arma::mat SIGMA(double Phi, int TempCorInd, arma::mat const& TimeDist, int Nu);
-arma::cube WAlphaCube(arma::vec const& Alpha, arma::vec const& Z, arma::umat const& AdjacentEdgesBoolean, arma::mat const& W, int M, int Nu);
-arma::mat WAlphaMatrix(double alpha, arma::vec const& Z, arma::umat const& AdjacentEdgesBoolean, arma::mat const& W, int M);
+arma::cube WAlphaCube(arma::vec const& Alpha, arma::colvec const& Z, arma::mat const& W, int M, int Nu, int WeightsInd);
+arma::mat WAlphaMatrix(double alpha, arma::colvec const& Z, arma::umat const& AdjacentEdgesBoolean, arma::mat const& W, int M, int WeightsInd);
 
 //DISTRIBUTION FUNCTIONS
 double lndMvn(arma::vec const& Y, arma::vec const& Mu, arma::mat const& Rooti);
 double randuRcpp();
 arma::mat rmvnormRcpp(int n, arma::vec const& mean, arma::mat const& sigma);
 arma::vec rnormRcpp(int n, double mean, double sd);
-double rtnormRcpp(double mean, double sd, bool Above = TRUE);
+double rtnormRcpp(double mean, double sd, bool Above);
+double rtnormRcppMSM(double mean, double sd, double lower, double upper);
 arma::mat rwishRcpp(double n, arma::mat const& V);
 
 //MCMC CONVERSION FUNCTIONS

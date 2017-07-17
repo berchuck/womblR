@@ -96,17 +96,6 @@ arma::mat SIGMA(double Phi, int TempCorInd, arma::mat const& TimeDist, int Nu) {
     }
     out = arma::symmatl(out);
   }
-
-  //ar(1) discrete
-  // if (TempCorInd == 2) {
-  //   out = arma::eye(Nu, Nu);
-  //   for (int j = 0; j < Nu; j++) {
-  //     for (int k = 0; k < j; k++) {
-  //       out(j, k) = std::pow(Phi, std::abs(j - k));
-  //     }
-  //   }
-  //   out = arma::symmatl(out);
-  // }
   return out;
 }
 
@@ -117,11 +106,23 @@ arma::mat SIGMA(double Phi, int TempCorInd, arma::mat const& TimeDist, int Nu) {
 //not for use by users.
 // [[Rcpp::depends(RcppArmadillo)]]
 // [[Rcpp::export]]
-arma::cube WAlphaCube(arma::vec const& Alpha, arma::vec const& Z, arma::umat const& AdjacentEdgesBoolean, arma::mat const& W, int M, int Nu) {
+arma::cube WAlphaCube(arma::vec const& Alpha, arma::colvec const& Z, arma::mat const& W, int M, int Nu, int WeightsInd) {
+  arma::mat UpperW = arma::trimatu(W);
+  arma::umat AdjacentEdgesBoolean = find(UpperW == 1);
   arma::cube WAlphas(M, M, Nu);
   arma::mat WAdj(M, M, arma::fill::zeros);
+  int Zlength = Z.n_rows;
+  arma::colvec Temp(Zlength);
+  double alpha;
   for (int i = 0; i < Nu; i++) {
-    WAdj(AdjacentEdgesBoolean) = arma::exp(-Z * Alpha(i));
+    alpha = Alpha(i);
+    Temp = arma::exp(-Z * alpha);
+    if (WeightsInd == 0) WAdj(AdjacentEdgesBoolean) = Temp; //continuous weights
+    if (WeightsInd == 1) { //binary weights from Lee and Mitchell 2011
+      Temp.elem(find(Temp >= 0.5)).ones();
+      Temp.elem(find(Temp < 0.5)).zeros();
+      WAdj(AdjacentEdgesBoolean) = Temp;
+    }
     WAdj = arma::symmatu(WAdj);
     WAlphas.slice(i) = WAdj;
   }
@@ -131,9 +132,15 @@ arma::cube WAlphaCube(arma::vec const& Alpha, arma::vec const& Z, arma::umat con
 
 
 //Function to calculate W(alpha_t)---------------------------------------------------------------------------------
-arma::mat WAlphaMatrix(double alpha, arma::vec const& Z, arma::umat const& AdjacentEdgesBoolean, arma::mat const& W, int M) {
+arma::mat WAlphaMatrix(double alpha, arma::colvec const& Z, arma::umat const& AdjacentEdgesBoolean, arma::mat const& W, int M, int WeightsInd) {
   arma::mat WAdj(M, M, arma::fill::zeros);
-  WAdj(AdjacentEdgesBoolean) = arma::exp(-Z * alpha);
+  arma::colvec Temp = arma::exp(-Z * alpha);
+  if (WeightsInd == 0) WAdj(AdjacentEdgesBoolean) = Temp; //continuous weights
+  if (WeightsInd == 1) { //binary weights from Lee and Mitchell 2011
+    Temp.elem(find(Temp >= 0.5)).ones();
+    Temp.elem(find(Temp < 0.5)).zeros();
+    WAdj(AdjacentEdgesBoolean) = Temp;
+  }
   WAdj = arma::symmatu(WAdj);
   return WAdj;
 }

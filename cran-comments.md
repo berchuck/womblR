@@ -1,9 +1,5 @@
-## Resubmission
-This is a resubmission. In this version I have:
-
-* Addressed the comment, "All your examples are wrapped in \dontrun{}  and hence do not get tested. Please unwrap them or provide toy examples outside of \dontrun{} that execute in < 5 sec for each Rd file.""
-
-  -I have unwrapped the examples from \dontrun{}.
+## Submission of version 1.0.1 of womblR
+* The document NEWS.md details some of the updates to womblR. Very soon, a manuscript will be submitted and theoretical details will be added to the help manual/files along with a link to an arXiv.org paper.  
 
 ## Test environments
 * Mac: x86_64-apple-darwin13.4.0 (64-bit), R 3.3.0
@@ -11,10 +7,4 @@ This is a resubmission. In this version I have:
 * win-builder (devel and release)
 
 ## R CMD check results
-There were no ERRORs or WARNINGs. 
-
-There was 1 NOTE:
-
-* New submission
-
-###This is a new submission, so this NOTE can not be removed. But, it does not impact the build of the package.
+There were no ERRORs,  WARNINGs or NOTES. 

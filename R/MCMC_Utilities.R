@@ -43,6 +43,7 @@ OutputDatObj <- function(DatObj) {
                     YObserved = DatObj$YObserved,
                     ScaleDM = DatObj$ScaleDM,
                     TempCorInd = DatObj$TempCorInd,
+                    WeightsInd = DatObj$WeightsInd,
                     Time = DatObj$Time)
   return(DatObjOut)
 

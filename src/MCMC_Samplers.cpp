@@ -60,13 +60,13 @@ std::pair<para, metrobj> SamplePhi(datobj DatObj, para Para, hypara HyPara, metr
   double AcceptancePhi = MetrObj.AcceptancePhi;
 
   //Transform current state to real line
-  double BigDelta = log( (Phi - APhi ) / ( BPhi - Phi ) );
+  double BigDelta = log((Phi - APhi) / (BPhi - Phi ));
 
   //Sample a new Proposal
   double BigDeltaProposal = arma::as_scalar(rnormRcpp(1, BigDelta, MetropPhi));
 
   //Compute Phi Proposal
-  double PhiProposal = ( BPhi * exp(BigDeltaProposal) + APhi ) / ( 1 + exp(BigDeltaProposal) );
+  double PhiProposal = (BPhi * exp(BigDeltaProposal) + APhi) / (1 + exp(BigDeltaProposal));
 
   // //Fix numerical issue where PhiProposal can equal APhi or BPhi
   // arma::vec PhiProposalVec(1), APhiVec(1), BPhiVec(1);
@@ -375,6 +375,7 @@ std::pair<para, metrobj> SampleTheta3(datobj DatObj, para Para, metrobj MetrObj)
   double Rho = DatObj.Rho;
   int Nu = DatObj.Nu;
   int M = DatObj.M;
+  int WeightsInd = DatObj.WeightsInd;
   arma::vec Z = DatObj.Z;
   arma::umat AdjacentEdgesBoolean = DatObj.AdjacentEdgesBoolean;
   arma::mat W = DatObj.W;
@@ -440,7 +441,7 @@ std::pair<para, metrobj> SampleTheta3(datobj DatObj, para Para, metrobj MetrObj)
     }
 
     //Get proposal JointCovariance
-    WAlphaProposal = WAlphaMatrix(AlphaVisitProposal, Z, AdjacentEdgesBoolean, W, M);
+    WAlphaProposal = WAlphaMatrix(AlphaVisitProposal, Z, AdjacentEdgesBoolean, W, M, WeightsInd);
     JointCovarianceProposal = JointCovarianceMatrix(WAlphaProposal, Tau2Visit, EyeM, Rho, M);
 
     //Likelihood Component
@@ -538,7 +539,9 @@ arma::mat SampleProbit(datobj DatObj, para Para, dataug DatAug) {
     double ConditionalMean = arma::as_scalar(Rho * (Wij * YStarVisit) + (1 - Rho) * mu) / BigDelta;
 
     //Sample latent Variable from full conditional
-    YStarWide(Location, Visit) = rtnormRcpp(ConditionalMean, ConditionalSD);
+    double Temp = rtnormRcpp(ConditionalMean, ConditionalSD, true);
+    if (!arma::is_finite(Temp)) Temp = rtnormRcppMSM(ConditionalMean, ConditionalSD, -arma::datum::inf, 0);
+    YStarWide(Location, Visit) = Temp;
 
     //End loop over truncated observations
   }
@@ -564,7 +567,9 @@ arma::mat SampleProbit(datobj DatObj, para Para, dataug DatAug) {
     double ConditionalMean = arma::as_scalar(Rho * (Wij * YStarVisit) + (1 - Rho) * mu) / BigDelta;
 
     //Sample latent Variable from full conditional
-    YStarWide(Location, Visit) = rtnormRcpp(ConditionalMean, ConditionalSD, false);
+    double Temp = rtnormRcpp(ConditionalMean, ConditionalSD, true);
+    if (!arma::is_finite(Temp)) Temp = rtnormRcppMSM(ConditionalMean, ConditionalSD, 0, arma::datum::inf);
+    YStarWide(Location, Visit) = Temp;
 
     //End loop over truncated observations
   }
@@ -614,7 +619,10 @@ arma::mat SampleTobit(datobj DatObj, para Para, dataug DatAug) {
     double ConditionalMean = arma::as_scalar(Rho * (Wij * YStarVisit) + (1 - Rho) * mu) / BigDelta;
 
     //Sample latent Variable from full conditional
-    YStarWide(Location, Visit) = rtnormRcpp(ConditionalMean, ConditionalSD);
+    double Temp = rtnormRcpp(ConditionalMean, ConditionalSD, true);
+    if (!arma::is_finite(Temp)) Temp = rtnormRcppMSM(ConditionalMean, ConditionalSD, -arma::datum::inf, 0);
+    // if (!arma::is_finite(Temp)) Rcpp::stop("infinte value sampled in Tobit sampling step. Most likey cause for this error is that the data being used is inappropriate (i.e., to far from zero) for a Tobit model. Consider scaling towards zero and re-running.");
+    YStarWide(Location, Visit) = Temp;
 
     //End loop over truncated observations
   }

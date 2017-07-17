@@ -18,6 +18,7 @@
 #' @importFrom grDevices  col2rgb colorRampPalette
 #' @importFrom utils tail
 #' @importFrom stats lm sd var
+#' @importFrom msm rtnorm
 #' @importFrom mvtnorm pmvnorm
 #' @useDynLib womblR
 NULL

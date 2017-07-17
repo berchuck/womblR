@@ -89,6 +89,9 @@
 #' @param Distance Character string indicating the distance metric for computing the
 #'  dissimilarity metric. Options include: \code{"euclidean"} and \code{"circumference"}.
 #'
+#' @param Weights Character string indicating the type of weight used. Options include:
+#'  \code{"continuous"} and \code{"binary"}.
+#'
 #' @param Rho A scalar in \code{(0,1)} that dictates the magnitude of local spatial sharing.
 #'  By default it is fixed at \code{0.99} as suggested by Lee and Mitchell (2012).
 #'
@@ -148,8 +151,8 @@
 #' @export
 STBDwDM <- function(Y, DM, W, Time, Starting = NULL, Hypers = NULL, Tuning = NULL,
 			 		          MCMC = NULL, Family = "tobit", TemporalStructure = "exponential",
-			 		          Distance = "circumference", Rho = 0.99, ScaleY = 10, ScaleDM = 100,
-			 		          Seed = 54) {
+			 		          Distance = "circumference", Weights = "continuous", Rho = 0.99,
+			 		          ScaleY = 10, ScaleDM = 100, Seed = 54) {
 
 
   ###Function inputs
@@ -164,6 +167,7 @@ STBDwDM <- function(Y, DM, W, Time, Starting = NULL, Hypers = NULL, Tuning = NUL
   # Family = "tobit"
   # TemporalStructure = "exponential"
   # Distance = "circumference"
+  # Weights = "continuous"
   # Rho = 0.99
   # ScaleY = 10
   # ScaleDM = 100
@@ -176,7 +180,7 @@ STBDwDM <- function(Y, DM, W, Time, Starting = NULL, Hypers = NULL, Tuning = NUL
   if (missing(Time)) stop("Time: missing")
 
   ###Check model inputs
-  CheckInputs(Y, DM, W, Time, Starting, Hypers, Tuning, MCMC, Family, TemporalStructure, Distance, Rho, ScaleY, ScaleDM)
+  CheckInputs(Y, DM, W, Time, Starting, Hypers, Tuning, MCMC, Family, TemporalStructure, Distance, Weights, Rho, ScaleY, ScaleDM)
 
   ####Set seed for reproducibility
   set.seed(Seed)
@@ -185,7 +189,7 @@ STBDwDM <- function(Y, DM, W, Time, Starting = NULL, Hypers = NULL, Tuning = NUL
   Interactive <- interactive()
 
   ###Create objects for use in sampler
-  DatObj <- CreateDatObj(Y, DM, W, Time, Rho, ScaleY, ScaleDM, TemporalStructure, Family, Distance)
+  DatObj <- CreateDatObj(Y, DM, W, Time, Rho, ScaleY, ScaleDM, TemporalStructure, Family, Distance, Weights)
   HyPara <- CreateHyPara(Hypers, DatObj)
   MetrObj <- CreateMetrObj(Tuning, DatObj)
   Para <- CreatePara(Starting, DatObj, HyPara)

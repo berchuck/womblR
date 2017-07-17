@@ -15,13 +15,13 @@ arma::mat YKrigging(Rcpp::List DatObj_List, arma::mat ThetaKrig, int NKeep) {
   int FamilyInd = DatObj.FamilyInd;
   int M = DatObj.M;
   int NNewVisits = DatObj.NNewVisits;
+  int WeightsInd = DatObj.WeightsInd;
   double ScaleY = DatObj.ScaleY;
   double Rho = DatObj.Rho;
   arma::vec Z = DatObj.Z;
   arma::vec OneM = DatObj.OneM;
   arma::mat EyeM = DatObj.EyeM;
   arma::mat W = DatObj.W;
-  arma::umat AdjacentEdgesBoolean = DatObj.AdjacentEdgesBoolean;
 
   //Verbose output
   arma::vec VerboseSeq;
@@ -48,7 +48,7 @@ arma::mat YKrigging(Rcpp::List DatObj_List, arma::mat ThetaKrig, int NKeep) {
     Alpha = exp(ThetaT.col(2));
 
     //Get joint moments
-    WAlphas = WAlphaCube(Alpha, Z, AdjacentEdgesBoolean, W, M, NNewVisits);
+    WAlphas = WAlphaCube(Alpha, Z, W, M, NNewVisits, WeightsInd);
     JointCovariances = JointCovarianceCube(WAlphas, Tau2, EyeM, Rho, M, NNewVisits);
 
     //Sample from posterior predictive distribution

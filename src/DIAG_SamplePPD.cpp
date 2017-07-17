@@ -16,13 +16,13 @@ arma::mat SamplePPD(Rcpp::List DatObj_List, Rcpp::List Para_List, int NKeep) {
   int FamilyInd = DatObj.FamilyInd;
   int Nu = DatObj.Nu;
   int M = DatObj.M;
+  int WeightsInd = DatObj.WeightsInd;
   double ScaleY = DatObj.ScaleY;
   double Rho = DatObj.Rho;
   arma::vec Z = DatObj.Z;
   arma::vec OneM = DatObj.OneM;
   arma::mat EyeM = DatObj.EyeM;
   arma::mat W = DatObj.W;
-  arma::umat AdjacentEdgesBoolean = DatObj.AdjacentEdgesBoolean;
 
   //Set parameters
   arma::mat MuMat = Para.Mu.t();
@@ -48,7 +48,7 @@ arma::mat SamplePPD(Rcpp::List DatObj_List, Rcpp::List Para_List, int NKeep) {
     Mu = MuMat.col(s);
     Tau2 = Tau2Mat.col(s);
     Alpha = AlphaMat.col(s);
-    WAlphas = WAlphaCube(Alpha, Z, AdjacentEdgesBoolean, W, M, Nu);
+    WAlphas = WAlphaCube(Alpha, Z, W, M, Nu, WeightsInd);
     JointCovariances = JointCovarianceCube(WAlphas, Tau2, EyeM, Rho, M, Nu);
 
     //Sample from posterior predictive distribution

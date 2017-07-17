@@ -1,4 +1,4 @@
-CheckInputs <- function(Y, DM, W, Time, Starting, Hypers, Tuning, MCMC, Family, TemporalStructure, Distance, Rho, ScaleY, ScaleDM) {
+CheckInputs <- function(Y, DM, W, Time, Starting, Hypers, Tuning, MCMC, Family, TemporalStructure, Distance, Weights, Rho, ScaleY, ScaleDM) {
 
   ###Data dimensions
   N <- length(Y)
@@ -10,6 +10,9 @@ CheckInputs <- function(Y, DM, W, Time, Starting, Hypers, Tuning, MCMC, Family, 
 
   ###Distance
   if (!Distance %in% c("euclidean", "circumference")) stop('Distance: must be one of "euclidean" or "circumference"')
+
+  ###Weights
+  if (!Weights %in% c("continuous", "binary")) stop('Weights: must be one of "continuous" or "binary"')
 
   ###Temporal structure
   if (!TemporalStructure %in% c("exponential", "ar1")) stop('TemporalStructure: must be one of "exponential" or "ar1"')

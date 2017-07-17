@@ -13,6 +13,7 @@ datobjPRED ConvertDatObjPRED(Rcpp::List DatObj_List) {
   int FamilyInd = DatObj_List["FamilyInd"];
   int NNewVisits = DatObj_List["NNewVisits"];
   int TempCorInd = DatObj_List["TempCorInd"];
+  int WeightsInd = DatObj_List["WeightsInd"];
   arma::vec YObserved = DatObj_List["YObserved"];
   arma::mat YStarWide = DatObj_List["YStarWide"];
   arma::mat W = DatObj_List["W"];
@@ -44,6 +45,7 @@ datobjPRED ConvertDatObjPRED(Rcpp::List DatObj_List) {
   DatObj.Z = Z;
   DatObj.TimeDist = TimeDist;
   DatObj.TempCorInd = TempCorInd;
+  DatObj.WeightsInd = WeightsInd;
   DatObj.NNewVisits = NNewVisits;
   DatObj.NewVisits = NewVisits;
   DatObj.OriginalVisits = OriginalVisits;

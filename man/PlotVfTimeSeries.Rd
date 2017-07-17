@@ -6,7 +6,8 @@
 \usage{
 PlotVfTimeSeries(Y, Location, Time,
   main = "Visual field sensitivity time series \\n at each location",
-  xlab = "Time from first visit (days)", ylab = "Sensitivity (dB)")
+  xlab = "Time from first visit (days)", ylab = "Sensitivity (dB)",
+  line.col = "red", line.reg = TRUE, line.type = 1)
 }
 \arguments{
 \item{Y}{a time series variable to be plotted.}
@@ -22,6 +23,13 @@ was observed.}
 \item{xlab}{a title for the x axis.}
 
 \item{ylab}{a title for the y axis.}
+
+\item{line.col}{color for the regression line, either character string corresponding
+to a color or a integer (default = "red").}
+
+\item{line.reg}{logical, determines if there are regression lines printed (default = TRUE).}
+
+\item{line.type}{integer, specifies the type of regression line printed (default = 1).}
 }
 \description{
 Plots a time series at each location of the Humphrey Field Analyzer-II visual field .

@@ -66,6 +66,12 @@ arma::mat rmvnormRcpp(int n, arma::vec const& mean, arma::mat const& sigma) {
 
 
 //Sample from a normal distribution truncated below or above by zero-----------------------
+// This first version uses the inverse sampling from a CDF. It has problems
+// when the data get to far from zero due to precision issues with qnorm and pnorm.
+// See "Simulation of truncated normal variables" C. Robert (2009). As such I also
+// include the truncated normal from the msm R package. This implementation uses an
+// accept-reject method that is more efficient than the inverse sampling version
+// that I currently use for values far from the truncation value (i.e, zero).
 double rtnormRcpp(double mean, double sd, bool Above) {
 
   //Declare Variables
@@ -77,6 +83,24 @@ double rtnormRcpp(double mean, double sd, bool Above) {
 
   //Truncation Below by Zero
   else return sd * qnormRcpp(RandU - pnormRcpp(ScaledMean) * (RandU - 1)) + mean;
+
+}
+double rtnormRcppMSM(double mean, double sd, double lower, double upper) {
+
+  //Set truncated normal function
+  Rcpp::Environment msm("package:msm");
+  Rcpp::Function rtnorm = msm["rtnorm"];
+
+  //Evaluate pmvnorm
+  SEXP rtnormSEXP;
+  rtnormSEXP = rtnorm(Rcpp::Named("n", 1),
+                      Rcpp::Named("mean", mean),
+                      Rcpp::Named("sd", sd),
+                      Rcpp::Named("lower", lower),
+                      Rcpp::Named("upper", upper));
+
+  //Convert output to double
+  return Rcpp::as<double>(rtnormSEXP);
 
 }
 

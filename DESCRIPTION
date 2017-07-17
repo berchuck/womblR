@@ -1,7 +1,7 @@
 Package: womblR
 Type: Package
 Title: Spatiotemporal Boundary Detection Model for Areal Unit Data 
-Version: 1.0.0
+Version: 1.0.1
 Description: Implements a spatiotemporal boundary detection model with a dissimilarity
     metric for areal data with inference in a Bayesian setting using Markov chain
     Monte Carlo (MCMC). The response variable can be modeled as Gaussian (no nugget),
@@ -17,7 +17,7 @@ LazyData: true
 RoxygenNote: 5.0.1
 NeedsCompilation: yes
 Depends: R (>= 3.0.2)
-Imports: graphics, grDevices, mvtnorm (>= 1.0-0), Rcpp (>= 0.12.9), stats, utils
+Imports: graphics, grDevices, msm (>= 1.0.0), mvtnorm (>= 1.0-0), Rcpp (>= 0.12.9), stats, utils
 Suggests: coda, classInt, knitr, rmarkdown
 LinkingTo: Rcpp, RcppArmadillo (>= 0.7.500.0.0)
 VignetteBuilder: knitr

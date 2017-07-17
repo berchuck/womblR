@@ -11,6 +11,7 @@ datobjDIAG ConvertDatObjDIAG(Rcpp::List DatObj_List) {
   int M = DatObj_List["M"];
   int Nu = DatObj_List["Nu"];
   int FamilyInd = DatObj_List["FamilyInd"];
+  int WeightsInd = DatObj_List["WeightsInd"];
   arma::vec YObserved = DatObj_List["YObserved"];
   arma::mat YStarWide = DatObj_List["YStarWide"];
   arma::mat W = DatObj_List["W"];
@@ -28,6 +29,7 @@ datobjDIAG ConvertDatObjDIAG(Rcpp::List DatObj_List) {
   DatObj.M = M;
   DatObj.Nu = Nu;
   DatObj.FamilyInd = FamilyInd;
+  DatObj.WeightsInd = WeightsInd;
   DatObj.YObserved = YObserved;
   DatObj.YStarWide = YStarWide;
   DatObj.W = W;

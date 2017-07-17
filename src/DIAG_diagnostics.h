@@ -13,6 +13,7 @@ struct datobjDIAG {
   int M;
   int Nu;
   int FamilyInd;
+  int WeightsInd;
   arma::vec YObserved;
   arma::mat YStarWide;
   arma::mat W;
@@ -39,7 +40,7 @@ struct dataugDIAG {
 //COVARIANCE FUNCTIONS
 arma::mat GetRooti(arma::mat const& Cov, arma::mat const& Eye);
 arma::cube JointCovarianceCube(arma::cube const& WAlphas, arma::vec const& Tau2, arma::mat const& EyeM, double Rho, int M, int Nu);
-arma::cube WAlphaCube(arma::vec const& Alpha, arma::vec const& Z, arma::umat const& AdjacentEdgesBoolean, arma::mat const& W, int M, int Nu);
+arma::cube WAlphaCube(arma::vec const& Alpha, arma::colvec const& Z, arma::mat const& W, int M, int Nu, int WeightsInd);
 
 //DIAGNOSTIC FUNCTIONS
 arma::colvec GetLogLik(Rcpp::List DatObj_List, Rcpp::List Para_List, Rcpp::List DatAug_List, int NKeep);

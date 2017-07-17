@@ -1,5 +1,5 @@
 ###Function for reading in sampler inputs and creating a list object that contains all relavent data objects--------------------
-CreateDatObj <- function(Y, DM, W, Time, Rho, ScaleY, ScaleDM, TemporalStructure, Family, Distance) {
+CreateDatObj <- function(Y, DM, W, Time, Rho, ScaleY, ScaleDM, TemporalStructure, Family, Distance, Weights) {
 
   ###Data objects
   YObserved <- Y / ScaleY #scale observed data
@@ -44,6 +44,10 @@ CreateDatObj <- function(Y, DM, W, Time, Rho, ScaleY, ScaleDM, TemporalStructure
   if (Family == "probit") FamilyInd <- 1
   if (Family == "tobit") FamilyInd <- 2
 
+  ###Weights indicator
+  if (Weights == "continuous") WeightsInd <- 0
+  if (Weights == "binary") WeightsInd <- 1
+
   ###Make parameters global
   DatObj <- list()
   DatObj$YObserved <- YObserved
@@ -69,6 +73,7 @@ CreateDatObj <- function(Y, DM, W, Time, Rho, ScaleY, ScaleDM, TemporalStructure
   DatObj$AdjacentEdgesBoolean <- AdjacentEdgesBoolean
   DatObj$TempCorInd <- TempCorInd
   DatObj$FamilyInd <- FamilyInd
+  DatObj$WeightsInd <- WeightsInd
   DatObj$Time <- Time
   return(DatObj)
 
@@ -81,6 +86,7 @@ CreateHyPara <- function(Hypers, DatObj) {
 
   ###Set data objects
   TimeDist <- DatObj$TimeDist
+  TempCorInd <- DatObj$TempCorInd
 
   ###Which parameters are user defined?
   UserHypers <- names(Hypers)
@@ -115,8 +121,14 @@ CreateHyPara <- function(Hypers, DatObj) {
   if (!"Phi" %in% UserHypers) {
     minDiff <- min( TimeDist[ TimeDist > 0 ] )
     maxDiff <- max( TimeDist[ TimeDist > 0 ] )
-    BPhi <- -log(0.01) / minDiff #shortest diff goes down to 1%
-    APhi <- -log(0.95) / maxDiff #longest diff goes up to 95%
+    if (TempCorInd == 0) { # exponential
+      BPhi <- -log(0.01) / minDiff #shortest diff goes down to 1%
+      APhi <- -log(0.95) / maxDiff #longest diff goes up to 95%
+    }
+    if (TempCorInd == 1) { # ar1
+      APhi <- 0.01 ^ (1 / minDiff) #shortest diff goes down to 1%
+      BPhi <- 0.95 ^ (1 / maxDiff) #longest diff goes up to 95%
+    }
   }
 
   ###Create object for hyperparameters
@@ -188,6 +200,7 @@ CreatePara <- function(Starting, DatObj, HyPara) {
   TempCorInd <- DatObj$TempCorInd
   EyeNTheta <- DatObj$EyeNTheta
   OneNu <- DatObj$OneNu
+  WeightsInd <- DatObj$WeightsInd
 
   ###Set hyperparameter objects
   APhi <- HyPara$APhi
@@ -211,7 +224,6 @@ CreatePara <- function(Starting, DatObj, HyPara) {
   }
   if (!"Phi" %in% UserStarters) Phi <- mean(c(APhi, BPhi))
 
-
   ###Set inital value of Theta (both matrix and vector form)
   VecTheta <- ZDelta %*% Delta
   Theta <- matrix(VecTheta, nrow = 3, ncol = Nu)
@@ -222,7 +234,7 @@ CreatePara <- function(Starting, DatObj, HyPara) {
   Alpha <- exp( Theta[ 3 , ] )
 
   ###Create covariance arrays that can be converted to arma::cubes
-  WAlphas <- WAlphaCube(Alpha, Z, AdjacentEdgesBoolean, W, M, Nu)
+  WAlphas <- WAlphaCube(Alpha, Z, W, M, Nu, WeightsInd)
   JointCovariances <- JointCovarianceCube(WAlphas, Tau2, EyeM, Rho, M, Nu)
   RootiLikelihoods <- RootiLikelihoodCube(JointCovariances, EyeM, M, Nu)
 

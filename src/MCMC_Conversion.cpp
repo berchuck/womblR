@@ -28,6 +28,7 @@ datobj ConvertDatObj(Rcpp::List DatObj_List) {
   arma::vec Z = DatObj_List["Z"];
   int TempCorInd = DatObj_List["TempCorInd"];
   int FamilyInd = DatObj_List["FamilyInd"];
+  int WeightsInd = DatObj_List["WeightsInd"];
 
   //Convert to C++ struct
   datobj DatObj;
@@ -53,6 +54,7 @@ datobj ConvertDatObj(Rcpp::List DatObj_List) {
   DatObj.Z = Z;
   DatObj.TempCorInd = TempCorInd;
   DatObj.FamilyInd = FamilyInd;
+  DatObj.WeightsInd = WeightsInd;
   return DatObj;
 
 }

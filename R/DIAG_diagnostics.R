@@ -73,6 +73,7 @@ diagnostics <- function(obj, diags = c("dic", "dinf", "waic"), keepDeviance = FA
   FamilyInd <- DatObj$FamilyInd
   Nu <- DatObj$Nu
   YObserved <- DatObj$YObserved
+  WeightsInd <- DatObj$WeightsInd
 
   ###Construct parameter object
   Para <- list()
@@ -82,7 +83,7 @@ diagnostics <- function(obj, diags = c("dic", "dinf", "waic"), keepDeviance = FA
   MuMean <- apply(obj$mu, 2, mean)
   Tau2Mean <- apply(obj$tau2, 2, mean)
   AlphaMean <- apply(obj$alpha, 2, mean)
-  CovMean <- JointCovarianceCube(WAlphaCube(AlphaMean, Z, AdjacentEdgesBoolean, W, M, Nu), Tau2Mean, EyeM, Rho, M, Nu)
+  CovMean <- JointCovarianceCube(WAlphaCube(AlphaMean, Z, W, M, Nu, WeightsInd), Tau2Mean, EyeM, Rho, M, Nu)
   Para$MuMean <- MuMean
   Para$CovMean <- CovMean
 

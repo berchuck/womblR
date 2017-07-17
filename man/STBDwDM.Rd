@@ -6,8 +6,8 @@
 \usage{
 STBDwDM(Y, DM, W, Time, Starting = NULL, Hypers = NULL, Tuning = NULL,
   MCMC = NULL, Family = "tobit", TemporalStructure = "exponential",
-  Distance = "circumference", Rho = 0.99, ScaleY = 10, ScaleDM = 100,
-  Seed = 54)
+  Distance = "circumference", Weights = "continuous", Rho = 0.99,
+  ScaleY = 10, ScaleDM = 100, Seed = 54)
 }
 \arguments{
 \item{Y}{An \code{N} dimensional vector containing the observed outcome data.
@@ -95,6 +95,9 @@ time observations. Options include: \code{"exponential"} and \code{"ar1"}.}
 
 \item{Distance}{Character string indicating the distance metric for computing the
 dissimilarity metric. Options include: \code{"euclidean"} and \code{"circumference"}.}
+
+\item{Weights}{Character string indicating the type of weight used. Options include:
+\code{"continuous"} and \code{"binary"}.}
 
 \item{Rho}{A scalar in \code{(0,1)} that dictates the magnitude of local spatial sharing.
 By default it is fixed at \code{0.99} as suggested by Lee and Mitchell (2012).}

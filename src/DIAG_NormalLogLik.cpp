@@ -12,10 +12,10 @@ arma::colvec NormalLogLik(datobjDIAG DatObj, paraDIAG Para, int NKeep) {
   //Set data objects
   int Nu = DatObj.Nu;
   int M = DatObj.M;
+  int WeightsInd = DatObj.WeightsInd;
   arma::mat EyeM = DatObj.EyeM;
   arma::vec OneM = DatObj.OneM;
   arma::vec Z = DatObj.Z;
-  arma::umat AdjacentEdgesBoolean = DatObj.AdjacentEdgesBoolean;
   arma::mat W = DatObj.W;
   double Rho = DatObj.Rho;
   arma::mat YStarWide = DatObj.YStarWide;
@@ -48,7 +48,7 @@ arma::colvec NormalLogLik(datobjDIAG DatObj, paraDIAG Para, int NKeep) {
     Mu = MuMat.row(s).t();
     Tau2 = Tau2Mat.row(s).t();
     Alpha = AlphaMat.row(s).t();
-    WAlphas = WAlphaCube(Alpha, Z, AdjacentEdgesBoolean, W, M, Nu);
+    WAlphas = WAlphaCube(Alpha, Z, W, M, Nu, WeightsInd);
     JointCovariances = JointCovarianceCube(WAlphas, Tau2, EyeM, Rho, M, Nu);
 
     //Loop over visits and return log-likelihood
