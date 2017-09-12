@@ -88,7 +88,8 @@ double rtnormRcpp(double mean, double sd, bool Above) {
 double rtnormRcppMSM(double mean, double sd, double lower, double upper) {
 
   //Set truncated normal function
-  Rcpp::Environment msm("package:msm");
+  // Rcpp::Environment msm("package:msm"); //this is equivalent to library(msm)
+  Rcpp::Environment msm = Rcpp::Environment::namespace_env("msm"); //This is equivalent to PACKAGE::FUNCTION()
   Rcpp::Function rtnorm = msm["rtnorm"];
 
   //Evaluate pmvnorm

@@ -1,3 +1,9 @@
+# womblR 1.0.2 (2017-09-12)
+
+* Fixed a bug related to the use of the truncated normal from the `msm` package.
+
+* Updated the vignette.
+
 # womblR 1.0.1 (2017-07-17)
 
 * New `STBDwDM()` functionality, related to the adjacency weights that can be used. A new option is included, `Weights` allows for the `binary` weights of the Lee and Mitchell (2011) specification.

@@ -8,7 +8,7 @@ using namespace Rcpp;
 
 // GetRooti
 arma::mat GetRooti(arma::mat const& Cov, arma::mat const& Eye);
-RcppExport SEXP womblR_GetRooti(SEXP CovSEXP, SEXP EyeSEXP) {
+RcppExport SEXP _womblR_GetRooti(SEXP CovSEXP, SEXP EyeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -20,7 +20,7 @@ END_RCPP
 }
 // JointCovarianceCube
 arma::cube JointCovarianceCube(arma::cube const& WAlphas, arma::vec const& Tau2, arma::mat const& EyeM, double Rho, int M, int Nu);
-RcppExport SEXP womblR_JointCovarianceCube(SEXP WAlphasSEXP, SEXP Tau2SEXP, SEXP EyeMSEXP, SEXP RhoSEXP, SEXP MSEXP, SEXP NuSEXP) {
+RcppExport SEXP _womblR_JointCovarianceCube(SEXP WAlphasSEXP, SEXP Tau2SEXP, SEXP EyeMSEXP, SEXP RhoSEXP, SEXP MSEXP, SEXP NuSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -36,7 +36,7 @@ END_RCPP
 }
 // RootiLikelihoodCube
 arma::cube RootiLikelihoodCube(arma::cube const& JointCovariances, arma::mat const& EyeM, int M, int Nu);
-RcppExport SEXP womblR_RootiLikelihoodCube(SEXP JointCovariancesSEXP, SEXP EyeMSEXP, SEXP MSEXP, SEXP NuSEXP) {
+RcppExport SEXP _womblR_RootiLikelihoodCube(SEXP JointCovariancesSEXP, SEXP EyeMSEXP, SEXP MSEXP, SEXP NuSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -50,7 +50,7 @@ END_RCPP
 }
 // SIGMA
 arma::mat SIGMA(double Phi, int TempCorInd, arma::mat const& TimeDist, int Nu);
-RcppExport SEXP womblR_SIGMA(SEXP PhiSEXP, SEXP TempCorIndSEXP, SEXP TimeDistSEXP, SEXP NuSEXP) {
+RcppExport SEXP _womblR_SIGMA(SEXP PhiSEXP, SEXP TempCorIndSEXP, SEXP TimeDistSEXP, SEXP NuSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -64,7 +64,7 @@ END_RCPP
 }
 // WAlphaCube
 arma::cube WAlphaCube(arma::vec const& Alpha, arma::colvec const& Z, arma::mat const& W, int M, int Nu, int WeightsInd);
-RcppExport SEXP womblR_WAlphaCube(SEXP AlphaSEXP, SEXP ZSEXP, SEXP WSEXP, SEXP MSEXP, SEXP NuSEXP, SEXP WeightsIndSEXP) {
+RcppExport SEXP _womblR_WAlphaCube(SEXP AlphaSEXP, SEXP ZSEXP, SEXP WSEXP, SEXP MSEXP, SEXP NuSEXP, SEXP WeightsIndSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -80,7 +80,7 @@ END_RCPP
 }
 // GetLogLik
 arma::colvec GetLogLik(Rcpp::List DatObj_List, Rcpp::List Para_List, Rcpp::List DatAug_List, int NKeep);
-RcppExport SEXP womblR_GetLogLik(SEXP DatObj_ListSEXP, SEXP Para_ListSEXP, SEXP DatAug_ListSEXP, SEXP NKeepSEXP) {
+RcppExport SEXP _womblR_GetLogLik(SEXP DatObj_ListSEXP, SEXP Para_ListSEXP, SEXP DatAug_ListSEXP, SEXP NKeepSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -94,7 +94,7 @@ END_RCPP
 }
 // GetLogLikMean
 double GetLogLikMean(Rcpp::List DatObj_List, Rcpp::List Para_List, Rcpp::List DatAug_List);
-RcppExport SEXP womblR_GetLogLikMean(SEXP DatObj_ListSEXP, SEXP Para_ListSEXP, SEXP DatAug_ListSEXP) {
+RcppExport SEXP _womblR_GetLogLikMean(SEXP DatObj_ListSEXP, SEXP Para_ListSEXP, SEXP DatAug_ListSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -107,7 +107,7 @@ END_RCPP
 }
 // SamplePPD
 arma::mat SamplePPD(Rcpp::List DatObj_List, Rcpp::List Para_List, int NKeep);
-RcppExport SEXP womblR_SamplePPD(SEXP DatObj_ListSEXP, SEXP Para_ListSEXP, SEXP NKeepSEXP) {
+RcppExport SEXP _womblR_SamplePPD(SEXP DatObj_ListSEXP, SEXP Para_ListSEXP, SEXP NKeepSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -120,7 +120,7 @@ END_RCPP
 }
 // STBDwDM_Rcpp
 Rcpp::List STBDwDM_Rcpp(Rcpp::List DatObj_List, Rcpp::List HyPara_List, Rcpp::List MetrObj_List, Rcpp::List Para_List, Rcpp::List DatAug_List, Rcpp::List McmcObj_List, arma::mat RawSamples, bool Interactive);
-RcppExport SEXP womblR_STBDwDM_Rcpp(SEXP DatObj_ListSEXP, SEXP HyPara_ListSEXP, SEXP MetrObj_ListSEXP, SEXP Para_ListSEXP, SEXP DatAug_ListSEXP, SEXP McmcObj_ListSEXP, SEXP RawSamplesSEXP, SEXP InteractiveSEXP) {
+RcppExport SEXP _womblR_STBDwDM_Rcpp(SEXP DatObj_ListSEXP, SEXP HyPara_ListSEXP, SEXP MetrObj_ListSEXP, SEXP Para_ListSEXP, SEXP DatAug_ListSEXP, SEXP McmcObj_ListSEXP, SEXP RawSamplesSEXP, SEXP InteractiveSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -138,7 +138,7 @@ END_RCPP
 }
 // ThetaKrigging
 arma::mat ThetaKrigging(Rcpp::List DatObj_List, Rcpp::List Para_List, int NKeep);
-RcppExport SEXP womblR_ThetaKrigging(SEXP DatObj_ListSEXP, SEXP Para_ListSEXP, SEXP NKeepSEXP) {
+RcppExport SEXP _womblR_ThetaKrigging(SEXP DatObj_ListSEXP, SEXP Para_ListSEXP, SEXP NKeepSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -151,7 +151,7 @@ END_RCPP
 }
 // YKrigging
 arma::mat YKrigging(Rcpp::List DatObj_List, arma::mat ThetaKrig, int NKeep);
-RcppExport SEXP womblR_YKrigging(SEXP DatObj_ListSEXP, SEXP ThetaKrigSEXP, SEXP NKeepSEXP) {
+RcppExport SEXP _womblR_YKrigging(SEXP DatObj_ListSEXP, SEXP ThetaKrigSEXP, SEXP NKeepSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -164,7 +164,7 @@ END_RCPP
 }
 // CholInv
 arma::mat CholInv(arma::mat const& Cov);
-RcppExport SEXP womblR_CholInv(SEXP CovSEXP) {
+RcppExport SEXP _womblR_CholInv(SEXP CovSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -175,7 +175,7 @@ END_RCPP
 }
 // Inv3
 arma::mat Inv3(arma::mat const& A);
-RcppExport SEXP womblR_Inv3(SEXP ASEXP) {
+RcppExport SEXP _womblR_Inv3(SEXP ASEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -186,7 +186,7 @@ END_RCPP
 }
 // makeSymm
 arma::mat makeSymm(arma::mat const& A);
-RcppExport SEXP womblR_makeSymm(SEXP ASEXP) {
+RcppExport SEXP _womblR_makeSymm(SEXP ASEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -197,20 +197,20 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"womblR_GetRooti", (DL_FUNC) &womblR_GetRooti, 2},
-    {"womblR_JointCovarianceCube", (DL_FUNC) &womblR_JointCovarianceCube, 6},
-    {"womblR_RootiLikelihoodCube", (DL_FUNC) &womblR_RootiLikelihoodCube, 4},
-    {"womblR_SIGMA", (DL_FUNC) &womblR_SIGMA, 4},
-    {"womblR_WAlphaCube", (DL_FUNC) &womblR_WAlphaCube, 6},
-    {"womblR_GetLogLik", (DL_FUNC) &womblR_GetLogLik, 4},
-    {"womblR_GetLogLikMean", (DL_FUNC) &womblR_GetLogLikMean, 3},
-    {"womblR_SamplePPD", (DL_FUNC) &womblR_SamplePPD, 3},
-    {"womblR_STBDwDM_Rcpp", (DL_FUNC) &womblR_STBDwDM_Rcpp, 8},
-    {"womblR_ThetaKrigging", (DL_FUNC) &womblR_ThetaKrigging, 3},
-    {"womblR_YKrigging", (DL_FUNC) &womblR_YKrigging, 3},
-    {"womblR_CholInv", (DL_FUNC) &womblR_CholInv, 1},
-    {"womblR_Inv3", (DL_FUNC) &womblR_Inv3, 1},
-    {"womblR_makeSymm", (DL_FUNC) &womblR_makeSymm, 1},
+    {"_womblR_GetRooti", (DL_FUNC) &_womblR_GetRooti, 2},
+    {"_womblR_JointCovarianceCube", (DL_FUNC) &_womblR_JointCovarianceCube, 6},
+    {"_womblR_RootiLikelihoodCube", (DL_FUNC) &_womblR_RootiLikelihoodCube, 4},
+    {"_womblR_SIGMA", (DL_FUNC) &_womblR_SIGMA, 4},
+    {"_womblR_WAlphaCube", (DL_FUNC) &_womblR_WAlphaCube, 6},
+    {"_womblR_GetLogLik", (DL_FUNC) &_womblR_GetLogLik, 4},
+    {"_womblR_GetLogLikMean", (DL_FUNC) &_womblR_GetLogLikMean, 3},
+    {"_womblR_SamplePPD", (DL_FUNC) &_womblR_SamplePPD, 3},
+    {"_womblR_STBDwDM_Rcpp", (DL_FUNC) &_womblR_STBDwDM_Rcpp, 8},
+    {"_womblR_ThetaKrigging", (DL_FUNC) &_womblR_ThetaKrigging, 3},
+    {"_womblR_YKrigging", (DL_FUNC) &_womblR_YKrigging, 3},
+    {"_womblR_CholInv", (DL_FUNC) &_womblR_CholInv, 1},
+    {"_womblR_Inv3", (DL_FUNC) &_womblR_Inv3, 1},
+    {"_womblR_makeSymm", (DL_FUNC) &_womblR_makeSymm, 1},
     {NULL, NULL, 0}
 };
 
