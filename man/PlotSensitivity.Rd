@@ -6,7 +6,7 @@
 \usage{
 PlotSensitivity(Y = Y,
   main = "Sensitivity Estimate (dB) at each \\nlocation on visual field",
-  legend.lab = "DLS (dB)", zlim, bins = 100, border = TRUE,
+  legend.lab = "DLS (dB)", zlim = c(10, 35), bins = 100, border = TRUE,
   legend = TRUE, color = c("yellow", "orange", "red"), legend.round = 0)
 }
 \arguments{

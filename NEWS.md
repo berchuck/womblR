@@ -1,3 +1,9 @@
+# womblR 1.0.3 (2018-06-19)
+
+* The function `PlotSensitivity` has been updated so the plotted values correspond to the user provided legend limits.
+
+* Vignette has been updated to reflect package improvements.
+
 # womblR 1.0.2 (2017-09-12)
 
 * Fixed a bug related to the use of the truncated normal from the `msm` package.

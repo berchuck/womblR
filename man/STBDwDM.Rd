@@ -156,13 +156,15 @@ distances is often used for improved MCMC convergence. By default it is fixed at
  boundary detection model using the Bayesian hierarchical framework.
 }
 \details{
-Details of the underlying statistical model proposed by proposed by
- Berchuck et al. 2017. are forthcoming.
+Details of the underlying statistical model can be found in the article by
+Berchuck et al. (2018), "Diagnosing Glaucoma Progression with Visual Field Data Using
+a Spatiotemporal Boundary Detection Method", <arXiv:1805.11636>.
 }
 \author{
 Samuel I. Berchuck
 }
 \references{
-Reference for Berchuck et al. 2017 is forthcoming.
+Berchuck et al. (2018), "Diagnosing Glaucoma Progression with Visual Field Data Using
+a Spatiotemporal Boundary Detection Method", <arXiv:1805.11636>.
 }
 
