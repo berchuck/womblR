@@ -23,4 +23,3 @@ A dataset containing 9 visual field series from a patient of the Vein Pulsation 
 Trial in Glaucoma and the Lions Eye Institute trial registry, Perth, Western Australia.
 }
 \keyword{datasets}
-

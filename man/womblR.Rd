@@ -13,9 +13,10 @@ Gaussian (no nugget), probit or Tobit link and spatial correlation is introduced
 at each time point through a conditional autoregressive (CAR) prior. Temporal
 correlation is introduced through a hierarchical structure and can be specified as
 exponential or first-order autoregressive. Full details of the the package can be found
-in the accompanying vignette.
+in the accompanying vignette. Furthermore, the details of the package can be found in the corresponding paper on arXiv
+by Berchuck et al (2018): "Diagnosing Glaucoma Progression with Visual Field Data Using a
+Spatiotemporal Boundary Detection Method", <arXiv:1805.11636>.
 }
 \author{
-Samuel I. Berchuck \email{berchuck@ad.unc.edu}
+Samuel I. Berchuck \email{sib2@duke.edu}
 }
-

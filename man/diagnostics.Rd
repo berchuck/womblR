@@ -4,8 +4,8 @@
 \alias{diagnostics}
 \title{diagnostics}
 \usage{
-diagnostics(obj, diags = c("dic", "dinf", "waic"), keepDeviance = FALSE,
-  keepPPD = FALSE)
+diagnostics(obj, diags = c("dic", "dinf", "waic"),
+  keepDeviance = FALSE, keepPPD = FALSE)
 }
 \arguments{
 \item{obj}{A \code{\link{STBDwDM}} model object for which diagnostics
@@ -44,9 +44,6 @@ To assess model fit, DIC, d-infinity and WAIC are used. DIC is based on the
  based on the variance estimator from Vehtari et al. 2016. (p_waic_1 is the mean
  estimator).
 }
-\author{
-Samuel I. Berchuck
-}
 \references{
 Gelfand, A. E., & Ghosh, S. K. (1998). Model choice: a minimum posterior predictive loss approach. Biometrika, 1-11.
 
@@ -56,4 +53,6 @@ Vehtari, A., Gelman, A., & Gabry, J. (2016). Practical Bayesian model evaluation
 
 Watanabe, S. (2010). Asymptotic equivalence of Bayes cross validation and widely applicable information criterion in singular learning theory. Journal of Machine Learning Research, 11(Dec), 3571-3594.
 }
-
+\author{
+Samuel I. Berchuck
+}

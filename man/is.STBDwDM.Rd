@@ -17,4 +17,3 @@ is.STBDwDM(x)
 The \code{\link{STBDwDM}} class is defined as the regression object that
  results from the \code{\link{STBDwDM}} regression function.
 }
-

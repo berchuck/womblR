@@ -106,8 +106,9 @@
 #' @param Seed An integer value used to set the seed for the random number generator
 #'  (default = 54).
 #'
-#' @details Details of the underlying statistical model proposed by proposed by
-#'  Berchuck et al. 2017. are forthcoming.
+#' @details Details of the underlying statistical model can be found in the article by
+#' Berchuck et al. (2018), "Diagnosing Glaucoma Progression with Visual Field Data Using
+#' a Spatiotemporal Boundary Detection Method", <arXiv:1805.11636>.
 #'
 #' @return \code{STBDwDM} returns a list containing the following objects
 #'
@@ -147,7 +148,8 @@
 #'   }
 #'
 #' @author Samuel I. Berchuck
-#' @references Reference for Berchuck et al. 2017 is forthcoming.
+#' @references Berchuck et al. (2018), "Diagnosing Glaucoma Progression with Visual Field Data Using
+#' a Spatiotemporal Boundary Detection Method", <arXiv:1805.11636>.
 #' @export
 STBDwDM <- function(Y, DM, W, Time, Starting = NULL, Hypers = NULL, Tuning = NULL,
 			 		          MCMC = NULL, Family = "tobit", TemporalStructure = "exponential",

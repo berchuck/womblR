@@ -6,8 +6,9 @@
 \usage{
 PlotSensitivity(Y = Y,
   main = "Sensitivity Estimate (dB) at each \\nlocation on visual field",
-  legend.lab = "DLS (dB)", zlim, bins = 100, border = TRUE,
-  legend = TRUE, color = c("yellow", "orange", "red"), legend.round = 0)
+  legend.lab = "DLS (dB)", zlim = c(10, 35), bins = 100,
+  border = TRUE, legend = TRUE, color = c("yellow", "orange", "red"),
+  legend.round = 0)
 }
 \arguments{
 \item{Y}{variable to be plotted on the visual field (e.g. differential light sensitivity).}
@@ -48,4 +49,3 @@ PlotSensitivity(Y = VFSeries$DLS[VFSeries$Visit == 1],
 \author{
 Samuel I. Berchuck
 }
-

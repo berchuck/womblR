@@ -27,18 +27,21 @@
 #' @author Samuel I. Berchuck
 #' @export
 PlotSensitivity <- function(Y = Y, main = "Sensitivity Estimate (dB) at each \nlocation on visual field",
-                            legend.lab = "DLS (dB)", zlim, bins = 100, border = TRUE, legend = TRUE,
+                            legend.lab = "DLS (dB)", zlim = c(10, 35), bins = 100, border = TRUE, legend = TRUE,
                             color = c("yellow", "orange", "red"), legend.round = 0) {
 
   ##Note: Depends on library classInt
   # You need the suggested package for this function
   if (!requireNamespace("classInt", quietly = TRUE)) {
     stop("classInt needed for this function to work. Please install it.",
-          call. = FALSE)
+         call. = FALSE)
   }
 
+  ###Check zlim missing
+  if (missing(zlim)) zlim <- c(min(Y), max(Y))
+
   ###Create Legend Cutoffs
-  labs <- levels(cut(Y, bins))
+  labs <- levels(cut(zlim, bins))
   labs <- cbind(lower = as.numeric(sub("\\((.+),.*","\\1", labs)), upper = as.numeric(sub("[^,]*,([^]]*)\\]","\\1", labs)))
   legvals <- as.numeric(c(labs[1, 1], labs[ , 2]))
   legvals[1] <- -Inf
@@ -47,12 +50,15 @@ PlotSensitivity <- function(Y = Y, main = "Sensitivity Estimate (dB) at each \nl
   ###Get color specification
   colbr <- colorRampPalette(color)
   colpal <- colbr(bins)
-  fixed_obs <- suppressWarnings(classInt::classIntervals( Y[!is.na(Y)], style = "fixed", fixedBreaks = legvals))
-  fixedcol_obs <- classInt::findColours(fixed_obs, colpal)
+
+  ###Get colors for each observation
+  # cuts <- as.character(apply(matrix(Y[!is.na(Y)], ncol = 1), 1, cut, legvals, labels = colpal))
+  cuts <- cut(Y[!is.na(Y)], breaks = legvals)
+  cuts <- colpal[as.numeric(cuts)]
 
   ###Create plotting functions
   square <- function(x, y, col) symbols(x, y, squares = 1, fg = col, bg = col, inches = FALSE, add = TRUE)
-  format0<-function(x, legend.round) format(round(x,legend.round),nsmall=legend.round)
+  format0 <- function(x, legend.round) format(round(x,legend.round),nsmall=legend.round)
 
   ###Get square coordinates
   Loc <- data.frame(x = c(4:7, 3:8, 2:9, 1:9, 1:9, 2:9, 3:8, 4:7), y = c(rep(1, 4), rep(2, 6), rep(3, 8), rep(4, 9), rep(5, 9), rep(6, 8), rep(7, 6), rep(8, 4)))
@@ -69,7 +75,7 @@ PlotSensitivity <- function(Y = Y, main = "Sensitivity Estimate (dB) at each \nl
   for (i in 1 : 52) {
     x <- Loc[i, 1] + 0.5
     y <- Loc[i ,2] + 0.5
-    square(x, y, col = fixedcol_obs[i])
+    square(x, y, col = cuts[i])
   }
   square(8 + 0.5, 5 + 0.5, col = "grey")
   square(8 + 0.5, 4 + 0.5, col = "grey")

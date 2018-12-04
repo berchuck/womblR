@@ -53,4 +53,3 @@ PlotVfTimeSeries(Y = VFSeries$DLS,
 \author{
 Samuel I. Berchuck
 }
-

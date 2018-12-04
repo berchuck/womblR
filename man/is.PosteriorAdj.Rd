@@ -17,4 +17,3 @@ is.PosteriorAdj(x)
 The \code{\link{PosteriorAdj}} class is defined as the posterior adjacency
  object that results from the \code{\link{PosteriorAdj}} function.
 }
-

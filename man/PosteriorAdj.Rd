@@ -41,4 +41,3 @@ The function \code{PosteriorAdj} calculates the posterior mean and standard
 \author{
 Samuel I. Berchuck
 }
-

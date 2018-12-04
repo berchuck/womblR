@@ -16,4 +16,3 @@ data(HFAII_QueenHF)
 Binary adjacency matrix for the Humphrey Field Analyzer-II (Carl Zeiss Meditec Inc., Dublin, CA)
 }
 \keyword{datasets}
-

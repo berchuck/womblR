@@ -15,4 +15,3 @@ data(HFAII_Rook)
 Binary adjacency matrix for the Humphrey Field Analyzer-II (Carl Zeiss Meditec Inc., Dublin, CA)
 }
 \keyword{datasets}
-
