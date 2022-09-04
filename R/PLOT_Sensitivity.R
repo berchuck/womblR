@@ -9,11 +9,13 @@
 #' @param main an overall title for the plot.
 #' @param zlim the limits used for the legend (default are the minimum and maximum of Y).
 #' @param color a vector of character strings representing the color palette.
+#' @param col.bs color of the blind spot locations (default = "grey").
 #' @param bins the number of bins used to refine the color palette for the figure and legend.
 #' @param legend logical, indicating whether the legend should be present (default = TRUE).
 #' @param legend.lab a label for the legend (default = "DLS (dB)").
 #' @param legend.round integer, indicating the digits that the legend labels are rounded to
 #'  (default = 0).
+#' @param legend.vals integer, indicating the number of labels values to be included on the legend (default = 5).
 #' @param border logical, indicating whether there should be a border around the visual field (default = TRUE).
 #' @details \code{PlotSensitivity} is used in the application of glaucoma progression to
 #'  plot a variable across the visual field in the form of a heat map.
@@ -27,8 +29,9 @@
 #' @author Samuel I. Berchuck
 #' @export
 PlotSensitivity <- function(Y = Y, main = "Sensitivity Estimate (dB) at each \nlocation on visual field",
-                            legend.lab = "DLS (dB)", zlim = c(10, 35), bins = 100, border = TRUE, legend = TRUE,
-                            color = c("yellow", "orange", "red"), legend.round = 0) {
+                            legend.lab = "DLS (dB)", zlim = c(10, 35), bins = 200, border = TRUE, legend = TRUE,
+                            color = c("yellow", "orange", "red"), col.bs = "grey",
+                            legend.round = 0, legend.vals = 5) {
 
   ##Note: Depends on library classInt
   # You need the suggested package for this function
@@ -77,8 +80,8 @@ PlotSensitivity <- function(Y = Y, main = "Sensitivity Estimate (dB) at each \nl
     y <- Loc[i ,2] + 0.5
     square(x, y, col = cuts[i])
   }
-  square(8 + 0.5, 5 + 0.5, col = "grey")
-  square(8 + 0.5, 4 + 0.5, col = "grey")
+  square(8 + 0.5, 5 + 0.5, col = col.bs)
+  square(8 + 0.5, 4 + 0.5, col = col.bs)
 
   ###Add border
   if (border) {
@@ -104,14 +107,14 @@ PlotSensitivity <- function(Y = Y, main = "Sensitivity Estimate (dB) at each \nl
     for (i in 1 : NColors) segments(11, Vertical[i], 11.75, Vertical[i], col = colpal[i], lwd = 1.5)
     minx <- zlim[1]
     maxx <- zlim[2]
-    LegendPV <- seq(minx, maxx, length.out = 5)
+    LegendPV <- seq(minx, maxx, length.out = legend.vals)
     segments(11.75, 3, 11.75, 7, lwd = 1.5)
     segments(11 ,3 ,11 ,7 , lwd = 1.5)
     segments(11 ,7 ,11.75, 7, lwd = 1.5)
     segments(11 ,3 ,11.75, 3, lwd = 1.5)
     for (i in 1 : length(LegendPV)) {
-      text(12.75, (3:7)[i], format0(LegendPV[i], legend.round))
-      segments(11.75, (3:7)[i], 12, (3:7)[i], lwd = 1.5)
+      text(12.75, seq(3, 7, length.out = legend.vals)[i], format0(LegendPV[i], legend.round))
+      segments(11.75, seq(3, 7, length.out = legend.vals)[i], 12, seq(3, 7, length.out = legend.vals)[i], lwd = 1.5)
     }
     text(11.5, 7.5, legend.lab)
   }

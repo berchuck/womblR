@@ -4,11 +4,19 @@
 \alias{PlotSensitivity}
 \title{PlotSensitivity}
 \usage{
-PlotSensitivity(Y = Y,
+PlotSensitivity(
+  Y = Y,
   main = "Sensitivity Estimate (dB) at each \\nlocation on visual field",
-  legend.lab = "DLS (dB)", zlim = c(10, 35), bins = 100,
-  border = TRUE, legend = TRUE, color = c("yellow", "orange", "red"),
-  legend.round = 0)
+  legend.lab = "DLS (dB)",
+  zlim = c(10, 35),
+  bins = 200,
+  border = TRUE,
+  legend = TRUE,
+  color = c("yellow", "orange", "red"),
+  col.bs = "grey",
+  legend.round = 0,
+  legend.vals = 5
+)
 }
 \arguments{
 \item{Y}{variable to be plotted on the visual field (e.g. differential light sensitivity).}
@@ -27,8 +35,12 @@ PlotSensitivity(Y = Y,
 
 \item{color}{a vector of character strings representing the color palette.}
 
+\item{col.bs}{color of the blind spot locations (default = "grey").}
+
 \item{legend.round}{integer, indicating the digits that the legend labels are rounded to
 (default = 0).}
+
+\item{legend.vals}{integer, indicating the number of labels values to be included on the legend (default = 5).}
 }
 \description{
 Plots a heat map of the differential light sensitivity on the Humphrey Field
@@ -41,7 +53,7 @@ Analyzer-II visual field.
 \examples{
 data(VFSeries)
 PlotSensitivity(Y = VFSeries$DLS[VFSeries$Visit == 1],
-                  main = "Sensitivity estimate (dB) at each \\n location on visual field",
+                  main = "Sensitivity estimate (dB) at each \n location on visual field",
                   legend.lab = "DLS (dB)",
                   zlim = c(10, 35),
                   bins = 250)

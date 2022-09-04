@@ -4,8 +4,12 @@
 \alias{diagnostics}
 \title{diagnostics}
 \usage{
-diagnostics(obj, diags = c("dic", "dinf", "waic"),
-  keepDeviance = FALSE, keepPPD = FALSE)
+diagnostics(
+  obj,
+  diags = c("dic", "dinf", "waic"),
+  keepDeviance = FALSE,
+  keepPPD = FALSE
+)
 }
 \arguments{
 \item{obj}{A \code{\link{STBDwDM}} model object for which diagnostics

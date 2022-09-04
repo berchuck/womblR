@@ -4,12 +4,14 @@
 \name{GarwayHeath}
 \alias{GarwayHeath}
 \title{Garway-Heath angles for the HFA-II}
-\format{A vector with length 54, where each entry represents the angle (in degrees) that the
+\format{
+A vector with length 54, where each entry represents the angle (in degrees) that the
  underlying retinal nerve fiber enters the optic nerve head. The measure ranges from 0-360,
  where 0  is designated at the 9-o’clock position (right eye) and angles are counted counter
  clockwise. These angles are estimates for the Humphrey Field Analyzer-II (Carl Zeiss Meditec
  Inc., Dublin, CA). The 26th and 35th entries are missing as they correspond to a natural
- blind spot.}
+ blind spot.
+}
 \usage{
 data(GarwayHeath)
 }

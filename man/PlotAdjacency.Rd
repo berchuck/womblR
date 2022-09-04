@@ -4,11 +4,21 @@
 \alias{PlotAdjacency}
 \title{PlotAdjacency}
 \usage{
-PlotAdjacency(Wij, Visit = 1, stat = "mean",
-  main = "Estimated Adjacencies", color.scheme = c("Black", "White"),
-  edgewidth = 2, cornerwidth = 1/4, lwd.border = 3,
-  color.bs = "gray", zlim = c(0, 1), legend = TRUE, DM = NULL,
-  W = NULL)
+PlotAdjacency(
+  Wij,
+  Visit = 1,
+  stat = "mean",
+  main = "Estimated Adjacencies",
+  color.scheme = c("Black", "White"),
+  edgewidth = 2,
+  cornerwidth = 1/4,
+  lwd.border = 3,
+  color.bs = "gray",
+  zlim = c(0, 1),
+  legend = TRUE,
+  DM = NULL,
+  W = NULL
+)
 }
 \arguments{
 \item{Wij}{a \code{\link{PosteriorAdj}} object.}
@@ -60,7 +70,7 @@ DM <- GarwayHeath[-blind_spot] #Uses Garway-Heath angles object "GarwayHeath"
 
 ###Adjacency plots
 PlotAdjacency(W = W, DM = DM, zlim = c(0, 180), Visit = NA,
-              main = "Garway-Heath dissimilarity metric\\n across the visual field")
+              main = "Garway-Heath dissimilarity metric\n across the visual field")
 
 }
 \author{

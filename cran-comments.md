@@ -1,5 +1,5 @@
-## Submission of version 1.0.4 of womblR
-* The PKG_CXXFLAGS flag in the Makevars file was removed. 
+## Submission of version 1.0.5 of womblR
+* This is a re-submission of the womblR R package. The package has been updated based on Dirk's suggestion: RcppCore/RcppArmadillo#391.
 
 ## Test environments
 * Mac: x86_64-apple-darwin13.4.0 (64-bit), R 3.3.0

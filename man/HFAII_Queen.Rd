@@ -4,10 +4,12 @@
 \name{HFAII_Queen}
 \alias{HFAII_Queen}
 \title{HFAII Queen Adjacency Matrix}
-\format{This adjacency matrix is formated using queen neighbor criteria, meaning two locations on
+\format{
+This adjacency matrix is formated using queen neighbor criteria, meaning two locations on
  the visual field are only considered neighbors if they share an edge or corner. The adjacency matrix is a
  54 x 54 dimensional binary object with zeros on the diagonal and the column and row sums are equal
- to the number of neighbors.}
+ to the number of neighbors.
+}
 \usage{
 data(HFAII_Queen)
 }

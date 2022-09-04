@@ -26,7 +26,8 @@ arma::colvec TobitLogLik(datobjDIAG DatObj, paraDIAG Para, dataugDIAG DatAug, in
 
   //Verbose output
   arma::vec VerboseSeq;
-  VerboseSeq << 0.25 << 0.50 << 0.75;
+  VerboseSeq = {0.25, 0.50, 0.75}; 	// new standard modern C++ brace initialization
+  // VerboseSeq << 0.25 << 0.50 << 0.75;
   VerboseSeq *= NKeep;
 
   //Set data augmentation objects

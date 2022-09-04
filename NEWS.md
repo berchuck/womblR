@@ -1,3 +1,7 @@
+# womblR 1.0.5 (2022-09-04)
+
+* Updated code based on RcppCore/RcppArmadillo#391. 
+
 # womblR 1.0.4 (2018-12-04)
 
 * The Makevars file was updated. 

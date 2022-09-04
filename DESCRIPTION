@@ -1,7 +1,7 @@
 Package: womblR
 Type: Package
 Title: Spatiotemporal Boundary Detection Model for Areal Unit Data 
-Version: 1.0.4
+Version: 1.0.5
 Description: Implements a spatiotemporal boundary detection model with a dissimilarity
     metric for areal data with inference in a Bayesian setting using Markov chain
     Monte Carlo (MCMC). The response variable can be modeled as Gaussian (no nugget),
@@ -13,12 +13,12 @@ Description: Implements a spatiotemporal boundary detection model with a dissimi
     Progression with Visual Field Data Using a Spatiotemporal Boundary Detection Method", 
     by Berchuck et al (2018), <arXiv:1805.11636>. The paper is in press at the Journal of 
     the American Statistical Association.
-Date: 2018-12-04
+Date: 2022-09-04
 Authors@R: person("Samuel I.", "Berchuck", email = "sib2@duke.edu", role = c("aut", "cre"), comment = c(ORCID = "0000-0001-5705-3144"))
 License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.1.0
+RoxygenNote: 7.2.1
 NeedsCompilation: yes
 Depends: R (>= 3.0.2)
 Imports: graphics, grDevices, msm (>= 1.0.0), mvtnorm (>= 1.0-0), Rcpp (>= 0.12.9), stats, utils

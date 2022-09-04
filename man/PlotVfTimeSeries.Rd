@@ -4,10 +4,17 @@
 \alias{PlotVfTimeSeries}
 \title{PlotVfTimeSeries}
 \usage{
-PlotVfTimeSeries(Y, Location, Time,
+PlotVfTimeSeries(
+  Y,
+  Location,
+  Time,
   main = "Visual field sensitivity time series \\n at each location",
-  xlab = "Time from first visit (days)", ylab = "Sensitivity (dB)",
-  line.col = "red", line.reg = TRUE, line.type = 1)
+  xlab = "Time from first visit (days)",
+  ylab = "Sensitivity (dB)",
+  line.col = "red",
+  line.reg = TRUE,
+  line.type = 1
+)
 }
 \arguments{
 \item{Y}{a time series variable to be plotted.}
@@ -44,7 +51,7 @@ data(VFSeries)
 PlotVfTimeSeries(Y = VFSeries$DLS,
                   Location = VFSeries$Location,
                   Time = VFSeries$Time,
-                  main = "Visual field sensitivity time series \\n at each location",
+                  main = "Visual field sensitivity time series \n at each location",
                   xlab = "Days from baseline visit",
                   ylab = "Differential light sensitivity (dB)")
 
