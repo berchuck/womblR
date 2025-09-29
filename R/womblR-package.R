@@ -15,7 +15,6 @@
 #' @author Samuel I. Berchuck \email{sib2@duke.edu}
 #'
 #' @name womblR
-#' @docType package
 #' @import Rcpp
 #' @importFrom graphics abline axis layout par plot points polygon title segments symbols rect text
 #' @importFrom grDevices  col2rgb colorRampPalette
@@ -24,4 +23,4 @@
 #' @importFrom msm rtnorm
 #' @importFrom mvtnorm pmvnorm
 #' @useDynLib womblR
-NULL
+"_PACKAGE"

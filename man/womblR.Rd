@@ -2,6 +2,7 @@
 % Please edit documentation in R/womblR-package.R
 \docType{package}
 \name{womblR}
+\alias{womblR-package}
 \alias{womblR}
 \title{womblR}
 \description{

@@ -1,3 +1,5 @@
+#include <limits>
+#include <cmath>
 #include <RcppArmadillo.h>
 #include "MCMC_STBDwDM.h"
 
@@ -299,9 +301,9 @@ std::pair<para, metrobj> SampleTheta2(datobj DatObj, para Para, metrobj MetrObj)
     TuningSD = sqrt(MetropTheta2(Visit));
 
     //Numerical fix for when a propopsal is rounded to 0 or Inf
-    Tau2VisitProposal = arma::datum::inf;
+    Tau2VisitProposal = std::numeric_limits<double>::infinity();
     ThetaProposal = Theta;
-    while ( (!arma::is_finite(Tau2VisitProposal)) || (Tau2VisitProposal == 0) ) {
+    while ( (!std::isfinite(Tau2VisitProposal)) || (Tau2VisitProposal == 0) ) {
 
       //Sample proposal
       ProposalTheta = rnormRcpp(1, CurrentTheta, TuningSD);
@@ -429,9 +431,9 @@ std::pair<para, metrobj> SampleTheta3(datobj DatObj, para Para, metrobj MetrObj)
     TuningSD = sqrt(MetropTheta3(Visit));
 
     //Numerical fix for when a propopsal is rounded to 0 or Inf
-    AlphaVisitProposal = arma::datum::inf;
+    AlphaVisitProposal = std::numeric_limits<double>::infinity();
     ThetaProposal = Theta;
-    while ( (!arma::is_finite(AlphaVisitProposal)) || (AlphaVisitProposal == 0) ) {
+    while ( (!std::isfinite(AlphaVisitProposal)) || (AlphaVisitProposal == 0) ) {
 
       //Sample proposal
       ProposalTheta = rnormRcpp(1, CurrentTheta, TuningSD);
@@ -540,7 +542,8 @@ arma::mat SampleProbit(datobj DatObj, para Para, dataug DatAug) {
 
     //Sample latent Variable from full conditional
     double Temp = rtnormRcpp(ConditionalMean, ConditionalSD, true);
-    if (!arma::is_finite(Temp)) Temp = rtnormRcppMSM(ConditionalMean, ConditionalSD, -arma::datum::inf, 0);
+    if (!std::isfinite(Temp)) Temp = rtnormRcppMSM(ConditionalMean, ConditionalSD, -std::numeric_limits<double>::infinity(), 0);
+    // if (!arma::is_finite(Temp)) Temp = rtnormRcppMSM(ConditionalMean, ConditionalSD, -arma::datum::inf, 0);
     YStarWide(Location, Visit) = Temp;
 
     //End loop over truncated observations
@@ -568,7 +571,8 @@ arma::mat SampleProbit(datobj DatObj, para Para, dataug DatAug) {
 
     //Sample latent Variable from full conditional
     double Temp = rtnormRcpp(ConditionalMean, ConditionalSD, true);
-    if (!arma::is_finite(Temp)) Temp = rtnormRcppMSM(ConditionalMean, ConditionalSD, 0, arma::datum::inf);
+    if (!std::isfinite(Temp)) Temp = rtnormRcppMSM(ConditionalMean, ConditionalSD, 0, std::numeric_limits<double>::infinity());
+    // if (!arma::is_finite(Temp)) Temp = rtnormRcppMSM(ConditionalMean, ConditionalSD, 0, arma::datum::inf);
     YStarWide(Location, Visit) = Temp;
 
     //End loop over truncated observations
@@ -620,7 +624,8 @@ arma::mat SampleTobit(datobj DatObj, para Para, dataug DatAug) {
 
     //Sample latent Variable from full conditional
     double Temp = rtnormRcpp(ConditionalMean, ConditionalSD, true);
-    if (!arma::is_finite(Temp)) Temp = rtnormRcppMSM(ConditionalMean, ConditionalSD, -arma::datum::inf, 0);
+    if (!std::isfinite(Temp)) Temp = rtnormRcppMSM(ConditionalMean, ConditionalSD, -std::numeric_limits<double>::infinity(), 0);
+    // if (!arma::is_finite(Temp)) Temp = rtnormRcppMSM(ConditionalMean, ConditionalSD, -arma::datum::inf, 0);
     // if (!arma::is_finite(Temp)) Rcpp::stop("infinte value sampled in Tobit sampling step. Most likey cause for this error is that the data being used is inappropriate (i.e., to far from zero) for a Tobit model. Consider scaling towards zero and re-running.");
     YStarWide(Location, Visit) = Temp;
 
